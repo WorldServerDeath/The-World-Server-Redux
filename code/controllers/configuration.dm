@@ -81,7 +81,8 @@ var/list/gamemode_cache = list()
 	var/ToRban = 0
 	var/automute_on = 0					//enables automuting/spam prevention
 	var/jobs_have_minimal_access = 0	//determines whether jobs use minimal access or expanded access.
-
+	
+	var/empty_server_restart_time = 0	// Time in minutes before empty server will restart
 	var/cult_ghostwriter = 1               //Allows ghosts to write in blood in cult rounds...
 	var/cult_ghostwriter_req_cultists = 10 //...so long as this many cultists are active.
 
@@ -614,6 +615,9 @@ var/list/gamemode_cache = list()
 
 				if("automute_on")
 					automute_on = 1
+
+				if("empty_server_restart_time")
+					config.empty_server_restart_time = text2num(value)
 
 				if("usealienwhitelist")
 					usealienwhitelist = 1
