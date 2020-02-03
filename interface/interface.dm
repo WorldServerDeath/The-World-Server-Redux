@@ -6,7 +6,7 @@
 	if(config.wikiurl)
 		if(query)
 			if(config.wikisearchurl)
-				var/output = replacetext(config.wikisearchurl, "%s", url_encode(query))	
+				var/output = replacetext(config.wikisearchurl, "%s", url_encode(query))
 				src << link(output)
 			else
 				src << "<span class='warning'> The wiki search URL is not set in the server configuration.</span>"
@@ -65,6 +65,19 @@
 		src << link(config.githuburl)
 	else
 		src << "<span class='danger'>The GitHub URL is not set in the server configuration.</span>"
+	return
+
+
+/client/verb/reportissue()
+	set name = "Report issue"
+	set desc = "Report an issue"
+	set hidden = 1
+	if(config.githuburl)
+		if(alert("This will open the Github issue reporter in your browser. Are you sure?",,"Yes","No")=="No")
+			return
+		src << link("[config.githuburl]/issues/new")
+	else
+		src << "<span class='danger'>The Github URL is not set in the server configuration.</span>"
 	return
 
 /client/verb/hotkeys_help()
