@@ -408,7 +408,7 @@
 	nutriment_desc = list("chocolate" = 3, "undying devotion" = 3)
 
 /obj/item/weapon/reagent_containers/food/snacks/chocolateegg
-	name = "Chocolate Egg"
+	name = "chocolate egg"
 	desc = "Such sweet, fattening food."
 	icon_state = "chocolateegg"
 	filling_color = "#7D5F46"
@@ -421,6 +421,33 @@
 	reagents.add_reagent("sugar", 2)
 	reagents.add_reagent("coco", 2)
 	bitesize = 2
+
+/obj/item/weapon/reagent_containers/food/snacks/chocolateegg/easter
+	name = "easter chocolate egg"
+
+/obj/item/weapon/reagent_containers/food/snacks/chocolateegg/easter/blue
+	icon_state = "egg-blue"
+
+/obj/item/weapon/reagent_containers/food/snacks/chocolateegg/easter/green
+	icon_state = "egg-green"
+
+/obj/item/weapon/reagent_containers/food/snacks/chocolateegg/easter/mime
+	icon_state = "egg-mime"
+
+/obj/item/weapon/reagent_containers/food/snacks/chocolateegg/easter/orange
+	icon_state = "egg-orange"
+
+/obj/item/weapon/reagent_containers/food/snacks/chocolateegg/easter/purple
+	icon_state = "egg-purple"
+
+/obj/item/weapon/reagent_containers/food/snacks/chocolateegg/easter/rainbow
+	icon_state = "egg-rainbow"
+
+/obj/item/weapon/reagent_containers/food/snacks/chocolateegg/easter/red
+	icon_state = "egg-red"
+
+/obj/item/weapon/reagent_containers/food/snacks/chocolateegg/easter/yellow
+	icon_state = "egg-yellow"
 
 /obj/item/weapon/reagent_containers/food/snacks/donut
 	name = "donut"
@@ -3231,6 +3258,16 @@
 	var/boxtag = ""
 	drop_sound = 'sound/items/drop/box.ogg'
 
+/obj/item/pizzabox/on_persistence_load()
+	var/pizza_inside = locate(/obj/item/weapon/reagent_containers/food/snacks/sliceable/pizza) in contents
+
+	if(!pizza_inside)
+		if(pizza)
+			qdel(pizza)
+			pizza = null
+	else
+		pizza = pizza_inside
+
 /obj/item/pizzabox/update_icon()
 
 	overlays = list()
@@ -3680,21 +3717,21 @@
 /obj/item/weapon/reagent_containers/food/snacks/skrellsnacks/New()
 	..()
 	bitesize = 6
-
+*/
 /obj/item/weapon/reagent_containers/food/snacks/unajerky
-	name = "Moghes Imported Sissalik Jerky"
+	name = "Sol Imported Lizard Jerky"
 	icon_state = "unathitinred"
-	desc = "An incredibly well made jerky, shipped in all the way from Moghes."
+	desc = "An incredibly well made jerky, shipped in all the way from Sol."
 	trash = /obj/item/trash/unajerky
 	filling_color = "#631212"
 	center_of_mass = list("x"=15, "y"=9)
 
 /obj/item/weapon/reagent_containers/food/snacks/unajerky/New()
-		..()
-		reagents.add_reagent("protein", 8)
-		reagents.add_reagent("capsaicin", 2)
-		bitesize = 2
-*/
+	..()
+	reagents.add_reagent("protein", 8)
+	reagents.add_reagent("capsaicin", 2)
+	bitesize = 2
+
 /obj/item/weapon/reagent_containers/food/snacks/croissant
 	name = "croissant"
 	desc = "True French cuisine."

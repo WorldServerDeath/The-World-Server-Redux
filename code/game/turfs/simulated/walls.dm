@@ -25,8 +25,6 @@
 	var/paint_color
 	var/stripe_color
 
-//	var/stripes_glow = FALSE
-
 	var/global/list/wall_stripe_cache = list()
 	var/list/blend_turfs = list(/turf/simulated/wall/cult, /turf/simulated/wall/wood, /turf/simulated/wall/walnut, /turf/simulated/wall/maple, /turf/simulated/wall/mahogany, /turf/simulated/wall/ebony)
 	var/list/blend_objects = list(/obj/structure/window/framed, /obj/machinery/door, /obj/machinery/door/airlock/multi_tile, /obj/structure/wall_frame, /obj/structure/grille, /obj/structure/window/reinforced/full, /obj/structure/window/reinforced/polarized/full, /obj/structure/window/shuttle, ,/obj/structure/window/phoronbasic/full, /obj/structure/window/phoronreinforced/full) // Objects which to blend with
@@ -35,41 +33,13 @@
 
 	unique_save_vars = list("paint_color", "stripe_color", "damage", "can_open")
 
+/turf/simulated/wall/on_persistence_load()
+	update_material()
+
 // Walls always hide the stuff below them.
 /turf/simulated/wall/levelupdate()
 	for(var/obj/O in src)
 		O.hide(1)
-
-/turf/simulated/wall/get_persistent_metadata()
-	if(!material)
-		return FALSE
-
-	var/list/wall_data = list()
-	wall_data["material"] = material.name
-	if(reinf_material)
-		wall_data["reinf_material"] = reinf_material.name
-	if(girder_material)
-		wall_data["girder_material"] = girder_material.name
-
-	return wall_data
-
-/turf/simulated/wall/load_persistent_metadata(metadata)
-	var/list/wall_data = metadata
-	if(!islist(wall_data))
-		return
-	if(get_material_by_name(wall_data["material"]))
-		material = get_material_by_name(wall_data["material"])
-	if(get_material_by_name(wall_data["reinforced"]))
-		reinf_material = get_material_by_name(wall_data["reinforced"])
-	if(get_material_by_name(wall_data["girder_material"]))
-		reinf_material = get_material_by_name(wall_data["girder_material"])
-
-	return TRUE
-
-/turf/simulated/wall/on_persistence_load()
-	update_material()
-	update_connections(1)
-	update_icon()
 
 /turf/simulated/wall/New(var/newloc, var/materialtype, var/rmaterialtype, var/girdertype)
 	..(newloc)
@@ -109,6 +79,9 @@
 
 	//cap the amount of damage, so that things like emitters can't destroy walls in one hit.
 	var/damage = min(proj_damage, 100)
+
+	if(damage > 0)
+		trigger_lot_security_system(null, /datum/lot_security_option/vandalism, "\The [src] was hit by \the [Proj].")
 
 	if(Proj.damage_type == BURN && damage > 0)
 		if(thermite)
@@ -342,3 +315,13 @@
 
 /turf/simulated/wall/is_wall()
 	return TRUE
+
+/turf/simulated/wall/MouseDrop_T(obj/O as obj, mob/user as mob)
+	if(!istype(O) || O.anchored || !O.wall_drag)
+		return
+
+	O.forceMove(get_turf(src))
+	if(O.wall_shift)
+		O.pixel_y = O.wall_shift
+
+	..()

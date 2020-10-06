@@ -112,6 +112,8 @@
 
 	var/proj_damage = Proj.get_structure_damage()
 	if(!proj_damage) return
+	if(proj_damage > 0)
+		trigger_lot_security_system(null, /datum/lot_security_option/vandalism, "\The [src] was hit by \the [Proj].")
 
 	..()
 	take_damage(proj_damage)
@@ -159,7 +161,7 @@
 	return 1
 
 
-/obj/structure/window/hitby(AM as mob|obj)
+/obj/structure/window/hitby(var/atom/movable/AM)
 	..()
 	visible_message("<span class='danger'>[src] was hit by [AM].</span>")
 	var/tforce = 0
@@ -175,6 +177,8 @@
 		update_nearby_icons()
 		step(src, get_dir(AM, src))
 	take_damage(tforce)
+	if(tforce > 0)
+		trigger_lot_security_system(AM.thrower, /datum/lot_security_option/vandalism, "Threw \the [AM] at \the [src].")
 
 /obj/structure/window/attack_tk(mob/user as mob)
 	user.visible_message("<span class='notice'>Something knocks on [src].</span>")
@@ -187,6 +191,7 @@
 		user.visible_message("<span class='danger'>[user] smashes through [src]!</span>")
 		user.do_attack_animation(src)
 		shatter()
+		trigger_lot_security_system(user, /datum/lot_security_option/vandalism, "Smashed \the [src].")
 
 	else if (usr.a_intent == I_HURT)
 
@@ -212,13 +217,26 @@
 	user.setClickCooldown(user.get_attack_speed())
 	if(!damage)
 		return
+
+	var/harmless = 0
+
+	if(isanimal(user))
+		var/mob/living/simple_animal/A = user
+		playsound(src, A.attack_sound, 75, 1)
+		if(!A.can_destroy_structures())
+			damage = 0
+			harmless = TRUE
 	if(damage >= 10)
 		visible_message("<span class='danger'>[user] smashes into [src]!</span>")
 		if(reinf)
 			damage = damage / 2
 		take_damage(damage)
+		trigger_lot_security_system(user, /datum/lot_security_option/vandalism, "Smashed into \the [src].")
 	else
-		visible_message("<span class='notice'>\The [user] bonks \the [src] harmlessly.</span>")
+		if(!harmless)
+			visible_message("<span class='notice'>\The [user] bonks \the [src] harmlessly.</span>")
+
+
 	user.do_attack_animation(src)
 	return 1
 
@@ -227,6 +245,10 @@
 
 	if(istype(W, /obj/item/device/floor_painter) && user.a_intent == I_HELP)
 		return // windows are paintable now, so no accidental damage should happen.
+
+	if(user.IsAntiGrief() && (user.a_intent != I_HELP || W))
+		to_chat(user, "<span class='notice'>You don't feel like messing with windows.</span>")
+		return
 
 	// Fixing.
 	if(istype(W, /obj/item/weapon/weldingtool) && user.a_intent == I_HELP)
@@ -267,11 +289,14 @@
 					M.Weaken(5)
 					M.apply_damage(20)
 					hit(50)
+			trigger_lot_security_system(user, /datum/lot_security_option/vandalism, "Slamming \the [M] against \the [src].")
 			return
 
 	if(W.flags & NOBLUDGEON) return
 
 	if(istype(W, /obj/item/weapon/screwdriver))
+		if(trigger_lot_security_system(user, /datum/lot_security_option/vandalism, "Using \the [W] to modify \the [src]."))
+			return
 		if(reinf && state >= 1)
 			state = 3 - state
 			update_nearby_icons()
@@ -290,6 +315,9 @@
 			playsound(src, W.usesound, 75, 1)
 			user << (anchored ? "<span class='notice'>You have fastened the window to the floor.</span>" : "<span class='notice'>You have unfastened the window.</span>")
 	else if(istype(W, /obj/item/weapon/crowbar) && reinf && state <= 1)
+		if(trigger_lot_security_system(user, /datum/lot_security_option/vandalism, "Using \the [W] to modify \the [src]."))
+			return
+		
 		state = 1 - state
 		playsound(src, W.usesound, 75, 1)
 		user << (state ? "<span class='notice'>You have pried the window into the frame.</span>" : "<span class='notice'>You have pried the window out of the frame.</span>")
@@ -297,6 +325,9 @@
 		if(!glasstype)
 			user << "<span class='notice'>You're not sure how to dismantle \the [src] properly.</span>"
 		else
+			if(trigger_lot_security_system(user, /datum/lot_security_option/vandalism, "Using \the [W] to dismantle \the [src]."))
+				return
+			
 			playsound(src, W.usesound, 75, 1)
 			visible_message("<span class='notice'>[user] dismantles \the [src].</span>")
 			var/obj/item/stack/material/mats = new glasstype(loc)
@@ -311,6 +342,7 @@
 		if(W.damtype == BRUTE || W.damtype == BURN)
 			user.do_attack_animation(src)
 			hit(W.force)
+			trigger_lot_security_system(user, /datum/lot_security_option/vandalism, "Damaging \the [src] with \a [W].")
 			if(health <= 7)
 				anchored = 0
 				update_nearby_icons()
@@ -459,6 +491,9 @@
 				overlays += I
 	return
 
+	/*
+	// Unreachable code. Left incase it is needed later.
+
 	// Damage overlays.
 	var/ratio = health / maxhealth
 	ratio = Ceiling(ratio * 4) * 25
@@ -469,6 +504,7 @@
 	overlays += I
 
 	return
+	*/
 
 /obj/structure/window/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume)
 	if(exposed_temperature > maximal_heat)
@@ -496,9 +532,10 @@
 /obj/structure/window/phoronbasic
 	name = "phoron window"
 	desc = "A borosilicate alloy window. It seems to be quite strong."
-	basestate = "phoronwindow"
 	shardtype = /obj/item/weapon/material/shard/phoron
 	glasstype = /obj/item/stack/material/glass/phoronglass
+	icon_state = "window"
+	basestate = "window"
 	maximal_heat = T0C + 2000
 	damage_per_fire_tick = 1.0
 	maxhealth = 40.0
@@ -556,6 +593,11 @@
 	icon_state = "window"
 	opacity = 1
 	color = GLASS_COLOR_TINTED
+
+/obj/structure/window/reinforced/tinted/full
+	dir = SOUTHWEST
+	icon_state = "rwindow_full"
+	maxhealth = 80
 
 /obj/structure/window/reinforced/tinted/frosted
 	name = "frosted window"

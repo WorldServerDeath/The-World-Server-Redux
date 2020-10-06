@@ -6,39 +6,41 @@
 
 /datum/supply_pack/materials
 	group = "Materials"
+	containertype = /obj/structure/closet/crate
+	spend_type = SPEND_MATERIALS
 
 /datum/supply_pack/materials/metal50
-	name = "50 metal sheets"
-	contains = list(/obj/fiftyspawner/steel)
-	cost = 30
+	name = "150 metal sheets"
+	contains = list(/obj/item/stack/material/steel/full = 3)
+	cost = 90
 	containertype = /obj/structure/closet/crate
 	containername = "Metal sheets crate"
 
 /datum/supply_pack/materials/glass50
-	name = "50 glass sheets"
-	contains = list(/obj/fiftyspawner/glass)
-	cost = 30
+	name = "150 glass sheets"
+	contains = list(/obj/item/stack/material/glass/full = 3)
+	cost = 70
 	containertype = /obj/structure/closet/crate
 	containername = "Glass sheets crate"
 
 /datum/supply_pack/materials/plastic50
-	name = "50 plastic sheets"
-	contains = list(/obj/fiftyspawner/plastic)
-	cost = 30
+	name = "150 plastic sheets"
+	contains = list(/obj/item/stack/material/plastic/full = 3)
+	cost = 70
 	containertype = /obj/structure/closet/crate
 	containername = "Plastic sheets crate"
 
 /datum/supply_pack/materials/cardboard_sheets
-	contains = list(/obj/fiftyspawner/cardboard)
-	name = "50 cardboard sheets"
-	cost = 30
+	contains = list(/obj/item/stack/material/cardboard/full = 3)
+	name = "150 cardboard sheets"
+	cost = 60
 	containertype = /obj/structure/closet/crate
 	containername = "Cardboard sheets crate"
 
 /datum/supply_pack/materials/marble
 	name = "50 marble slabs"
-	contains = list(/obj/fiftyspawner/marble)
-	cost = 60
+	contains = list(/obj/fiftyspawner/marble = 3)
+	cost = 190
 	containername = "marble slabs crate"
 
 /datum/supply_pack/materials/carpet
@@ -135,14 +137,39 @@
 	containertype = /obj/structure/closet/crate
 	containername = "Sewing Set"
 
-/datum/supply_pack/materials/tailor_materials
-	name = "Fine Tailoring Materials"
-	contains = list(/obj/fiftyspawner/silk = 3,
-	/obj/fiftyspawner/cotton = 3,
-	/obj/fiftyspawner/leather = 2)
-	cost = 700
+/datum/supply_pack/materials/silk
+	name = "150 silk sheets"
+	contains = list(/obj/fiftyspawner/silk = 3)
+	cost = 800
 	containertype = /obj/structure/closet/crate
-	containername = "Fine Tailoring Materials"
+	containername = "150 silk sheets"
 
+/datum/supply_pack/materials/cotton
+	name = "150 cotton sheets"
+	contains = list(/obj/fiftyspawner/cotton = 3)
+	cost = 300
+	containertype = /obj/structure/closet/crate
+	containername = "150 cotton sheets"
+
+/datum/supply_pack/materials/leather
+	name = "150 leather sheets"
+	contains = list(/obj/fiftyspawner/leather = 3)
+	cost = 600
+	containertype = /obj/structure/closet/crate
+	containername = "150 leather sheets"
+
+/datum/supply_pack/materials/denim
+	name = "150 denim sheets"
+	contains = list(/obj/fiftyspawner/denim = 3)
+	cost = 400
+	containertype = /obj/structure/closet/crate
+	containername = "150 denim sheets"
+
+/datum/supply_pack/materials/polychrome
+	name = "150 polychromatic thread sheets"
+	contains = list(/obj/fiftyspawner/polychrome = 3)
+	cost = 2000
+	containertype = /obj/structure/closet/crate
+	containername = "150 polychromatic thread sheets"
 
 

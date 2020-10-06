@@ -1,13 +1,14 @@
+
 //Food
 /datum/job/bartender
 	title = "Bartender"
 	flag = BARTENDER
-	faction = "City"
+//	faction = "City"
 	department = DEPT_BAR
 	department_flag = CIVILIAN
 	total_positions = 2
 	spawn_positions = 2
-	email_domain = "foodstuffs.nt"
+
 	supervisors = "the bar manager"
 	selection_color = "#515151"
 	idtype = /obj/item/weapon/card/id/civilian/bartender
@@ -15,19 +16,19 @@
 	minimal_access = list(access_bar)
 	minimum_character_age = 18
 	wage = 45
-	outfit_type = /decl/hierarchy/outfit/job/service/bartender
-	alt_titles = list("Waiting Staff","Barkeep","Mixologist","Barista" = /decl/hierarchy/outfit/job/service/bartender/barista)
+//	outfit_type = /decl/hierarchy/outfit/job/service/bartender
+	alt_titles = list("Waiting Staff","Barkeep","Mixologist","Barista")
 
 
 /datum/job/chef
 	title = "Chef"
 	flag = CHEF
-	faction = "City"
+//	faction = "City"
 	department = DEPT_BAR
 	department_flag = CIVILIAN
 	total_positions = 2
 	spawn_positions = 2
-	email_domain = "foodstuffs.nt"
+
 	supervisors = "the bar manager"
 	selection_color = "#515151"
 	idtype = /obj/item/weapon/card/id/civilian/chef
@@ -35,38 +36,38 @@
 	minimal_access = list(access_kitchen)
 	minimum_character_age = 15 //Those kids better serve some good burgers or I'll ask for the manager
 	wage = 45
-	outfit_type = /decl/hierarchy/outfit/job/service/chef
+//	outfit_type = /decl/hierarchy/outfit/job/service/chef
 	alt_titles = list("Restaurant Cashier","Cook","Restaurant Host")
 
 /datum/job/hydro
 	title = "Botanist"
 	flag = BOTANIST
-	faction = "City"
+//	faction = "City"
 	department_flag = CIVILIAN
 	department = DEPT_BOTANY
 	total_positions = 2
 	spawn_positions = 1
 	supervisors = "the bar manager"
-	email_domain = "foodstuffs.nt"
+
 	selection_color = "#515151"
 	idtype = /obj/item/weapon/card/id/civilian/botanist
 	access = list(access_hydroponics, access_bar, access_kitchen)
 	minimal_access = list(access_hydroponics)
 	minimum_character_age = 16 //Eh, I can see it happening
 	wage = 29
-	outfit_type = /decl/hierarchy/outfit/job/service/gardener
+//	outfit_type = /decl/hierarchy/outfit/job/service/gardener
 	alt_titles = list("Hydroponicist", "Gardener","Farmer")
 
 /datum/job/bargm
 	title = "Bar Manager"
 	flag = MANAGER
-	faction = "City"
+//	faction = "City"
 	department_flag = CIVILIAN
 	department = DEPT_BAR
 	total_positions = 1
 	spawn_positions = 1
 	supervisors = "the bar owner"
-	email_domain = "foodstuffs.nt"
+	subordinates = "the bar employees"
 	selection_color = "#515151"
 	idtype = /obj/item/weapon/card/id/civilian/bartender
 	access = list(access_hydroponics, access_bar, access_kitchen)
@@ -83,7 +84,7 @@
 /datum/job/journalist
 	title = "Journalist"
 	flag = JOURNALIST
-	faction = "City"
+//	faction = "City"
 	department_flag = CIVILIAN
 	department = DEPT_PUBLIC
 	total_positions = 4
@@ -95,7 +96,7 @@
 	minimal_access = list(access_library)
 	minimum_character_age = 16
 	wage = 36
-	outfit_type = /decl/hierarchy/outfit/job/civilian/journalist
+//	outfit_type = /decl/hierarchy/outfit/job/civilian/journalist
 	alt_titles = list("Archivist", "Librarian", "Radio Host")
 
 /datum/job/defense
@@ -110,7 +111,7 @@
 	selection_color = "#515151"
 	idtype = /obj/item/weapon/card/id/civilian/defense
 	wage = 140
-	email_domain = "legal.nt"
+
 	req_admin_notify = 1
 	access = list(access_lawyer, access_sec_doors, access_maint_tunnels, access_heads, access_legal)
 	minimal_access = list(access_lawyer, access_sec_doors, access_heads, access_legal)
@@ -125,7 +126,7 @@
 /datum/job/barber
 	title = "Barber"
 	flag = BARBER
-	faction = "City"
+//	faction = "City"
 	department_flag = CIVILIAN
 	department = DEPT_PUBLIC
 	total_positions = 2
@@ -137,7 +138,7 @@
 	access = list(access_barber, access_maint_tunnels)
 	minimal_access = list(access_barber)
 	wage = 47
-	outfit_type = /decl/hierarchy/outfit/job/civilian/barber
+//	outfit_type = /decl/hierarchy/outfit/job/civilian/barber
 	alt_titles = list("Hairdresser", "Stylist", "Beautician")
 
 //Cargo
@@ -150,7 +151,7 @@
 	total_positions = 1
 	spawn_positions = 1
 	supervisors = "the factory owners"
-	email_domain = ".aoki.nt"
+	subordinates = "the factory workers"
 	selection_color = "#7a4f33"
 	idtype = /obj/item/weapon/card/id/cargo/head
 	wage = 150
@@ -169,12 +170,12 @@
 	department = DEPT_FACTORY
 	department_flag = CIVILIAN
 	total_positions = 4
-	email_domain = "aoki.nt"
+
 	spawn_positions = 4
 	supervisors = "the factory manager"
 	selection_color = "#9b633e"
 	idtype = /obj/item/weapon/card/id/cargo/cargo_tech
-	wage = 40
+	wage = 70
 
 	access = list(access_maint_tunnels, access_mailsorting, access_cargo, access_cargo_bot, access_mining, access_mining_station)
 	minimal_access = list(access_maint_tunnels, access_cargo, access_cargo_bot, access_mailsorting)
@@ -186,13 +187,13 @@
 /datum/job/mining
 	title = "Miner"
 	flag = MINER
-	faction = "City"
+//	faction = "City"
 	department = DEPT_FACTORY
 	department_flag = CIVILIAN
 	total_positions = 3
 	spawn_positions = 3
 	supervisors = "the factory manager"
-	email_domain = "aoki.nt"
+
 	selection_color = "#9b633e"
 	idtype = /obj/item/weapon/card/id/cargo/mining
 	wage = 40

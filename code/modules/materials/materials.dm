@@ -174,8 +174,10 @@ var/list/name_to_material
 	if(islist(composite_material))
 		for(var/material_string in composite_material)
 			temp_matter[material_string] = composite_material[material_string]
-	else if(SHEET_MATERIAL_AMOUNT)
+	#ifdef SHEET_MATERIAL_AMOUNT
+	else
 		temp_matter[name] = SHEET_MATERIAL_AMOUNT
+	#endif
 	return temp_matter
 
 // As above.
@@ -228,6 +230,9 @@ var/list/name_to_material
 /material/proc/combustion_effect(var/turf/T, var/temperature)
 	return
 
+/material/proc/get_wall_texture()
+	return
+
 // Datum definitions follow.
 /material/uranium
 	name = "uranium"
@@ -258,6 +263,7 @@ var/list/name_to_material
 	name = "gold"
 	stack_type = /obj/item/stack/material/gold
 	icon_colour = "#EDD12F"
+	icon_base = "solid"
 	weight = 24
 	hardness = 40
 	conductivity = 41
@@ -267,12 +273,15 @@ var/list/name_to_material
 
 /material/gold/bronze //placeholder for ashtrays
 	name = "bronze"
+	stack_type = /obj/item/stack/material/bronze
+	sheet_singular_name = "ingot"
+	sheet_plural_name = "ingots"
 	icon_colour = "#EDD12F"
 
 /material/silver
 	name = "silver"
 	stack_type = /obj/item/stack/material/silver
-	icon_colour = "#D1E6E3"
+	icon_colour = COLOR_SILVER
 	weight = 22
 	hardness = 50
 	conductivity = 63
@@ -301,7 +310,7 @@ var/list/name_to_material
 	stack_type = /obj/item/stack/material/phoron
 	ignition_point = PHORON_MINIMUM_BURN_TEMPERATURE
 	icon_base = "stone"
-	icon_colour = "#FC2BC5"
+	icon_colour = COLOR_PHORON
 	shard_type = SHARD_SHARD
 	hardness = 30
 	stack_origin_tech = list(TECH_MATERIAL = 2, TECH_PHORON = 2)
@@ -343,12 +352,11 @@ var/list/name_to_material
 
 /material/stone/marble
 	name = "marble"
-	icon_colour = "#AAAAAA"
+	icon_colour = COLOR_MARBLE
 	weight = 26
 	hardness = 100
 	integrity = 201 //hack to stop kitchen benches being flippable, todo: refactor into weight system
 	stack_type = /obj/item/stack/material/marble
-
 
 /material/steel
 	name = DEFAULT_WALL_MATERIAL
@@ -360,7 +368,7 @@ var/list/name_to_material
 	icon_reinf = "reinf_over"
 	icon_colour = "#515151"
 
-/material/diona
+/material/biomass
 	name = "biomass"
 	icon_colour = null
 	stack_type = null
@@ -370,9 +378,6 @@ var/list/name_to_material
 
 /material/diona/place_dismantled_product()
 	return
-
-/material/diona/place_dismantled_girder(var/turf/target)
-	spawn_diona_nymph(target)
 
 /material/steel/holographic
 	name = "holo" + DEFAULT_WALL_MATERIAL
@@ -416,6 +421,7 @@ var/list/name_to_material
 
 /material/plasteel/titanium
 	name = "titanium"
+	stack_type = /obj/item/stack/material/titanium
 	stack_type = null
 	conductivity = 2.38
 	icon_base = "metal"
@@ -454,7 +460,7 @@ var/list/name_to_material
 /material/tritium
 	name = "tritium"
 	stack_type = /obj/item/stack/material/tritium
-	icon_colour = "#777777"
+	icon_colour = COLOR_TRITIUM
 	stack_origin_tech = list(TECH_MATERIAL = 5)
 	sheet_singular_name = "ingot"
 	sheet_plural_name = "ingots"
@@ -480,7 +486,7 @@ var/list/name_to_material
 /material/platinum
 	name = "platinum"
 	stack_type = /obj/item/stack/material/platinum
-	icon_colour = "#9999FF"
+	icon_colour = COLOR_PLATINUM
 	weight = 27
 	conductivity = 9.43
 	stack_origin_tech = list(TECH_MATERIAL = 2)
@@ -499,7 +505,7 @@ var/list/name_to_material
 /material/lead
 	name = "lead"
 	stack_type = /obj/item/stack/material/lead
-	icon_colour = "#273956"
+	icon_colour = COLOR_LEAD
 	weight = 23 // Lead is a bit more dense than silver IRL, and silver has 22 ingame.
 	conductivity = 10
 	sheet_singular_name = "ingot"
@@ -565,7 +571,7 @@ var/list/name_to_material
 	flags = MATERIAL_BRITTLE
 	icon_base = "solid"
 	icon_reinf = "reinf_over"
-	icon_colour = "#FFFFFF"
+	icon_colour = COLOR_WHITE
 	integrity = 1
 	hardness = 1
 	weight = 1
@@ -623,12 +629,30 @@ var/list/name_to_material
 //TODO PLACEHOLDERS:
 /material/leather
 	name = "leather"
-	icon_colour = "#5C4831"
+	icon_colour = COLOR_LEATHER
 	stack_origin_tech = list(TECH_MATERIAL = 2)
 	flags = MATERIAL_PADDING
 	ignition_point = T0C+300
 	melting_point = T0C+300
 	protectiveness = 3 // 13%
+
+/material/leather/synthetic
+	name = "synthetic leather"
+	icon_colour = COLOR_LEATHER
+	stack_origin_tech = list(TECH_MATERIAL = 2)
+	flags = MATERIAL_PADDING
+	ignition_point = T0C+400
+	melting_point = T0C+400
+	protectiveness = 2 // 13%
+
+/material/denim
+	name = "denim"
+	icon_colour = COLOR_DENIM
+	stack_origin_tech = list(TECH_MATERIAL = 2)
+	flags = MATERIAL_PADDING
+	ignition_point = T0C+300
+	melting_point = T0C+300
+	protectiveness = 5
 
 /material/silk
 	name = "silk"
@@ -651,6 +675,15 @@ var/list/name_to_material
 /material/cotton
 	name = "cotton"
 	display_name ="cotton"
+	icon_colour = "#FFFFFF"
+	flags = MATERIAL_PADDING
+	ignition_point = T0C+232
+	melting_point = T0C+300
+	protectiveness = 1 // 4%
+
+/material/polychromatic_thread
+	name = "polychromatic thread"
+	display_name ="polychromatic thread"
 	icon_colour = "#FFFFFF"
 	flags = MATERIAL_PADDING
 	ignition_point = T0C+232
@@ -762,3 +795,63 @@ var/list/name_to_material
 	hardness = 1
 	weight = 1
 	protectiveness = 0 // 0%
+
+/material/void_opal
+	name = "void opal"
+	display_name = "void opal"
+	use_name = "void opal"
+	stack_type = /obj/item/stack/material/void_opal
+	flags = MATERIAL_UNMELTABLE
+	cut_delay = 60
+	reflectivity = 0
+	conductivity = 1
+	shard_type = SHARD_SHARD
+	tableslam_noise = 'sound/effects/Glasshit.ogg'
+	hardness = 100
+	stack_origin_tech = list(TECH_ARCANE = 1, TECH_MATERIAL = 6)
+	sheet_singular_name = "gem"
+	sheet_plural_name = "gems"
+
+/material/painite
+	name = "painite"
+	display_name = "painite"
+	use_name = "painite"
+	stack_type = /obj/item/stack/material/painite
+	flags = MATERIAL_UNMELTABLE
+	tableslam_noise = 'sound/effects/Glasshit.ogg'
+	sheet_singular_name = "gem"
+	sheet_plural_name = "gems"
+
+/material/tin
+	name = "tin"
+	display_name = "tin"
+	use_name = "tin"
+	stack_type = /obj/item/stack/material/tin
+	sheet_singular_name = "ingot"
+	sheet_plural_name = "ingots"
+
+/material/copper
+	name = "copper"
+	display_name = "copper"
+	use_name = "copper"
+	stack_type = /obj/item/stack/material/copper
+	conductivity = 52
+	sheet_singular_name = "ingot"
+	sheet_plural_name = "ingots"
+
+/material/quartz
+	name = "quartz"
+	display_name = "quartz"
+	use_name = "quartz"
+	stack_type = /obj/item/stack/material/quartz
+	tableslam_noise = 'sound/effects/Glasshit.ogg'
+	sheet_singular_name = "crystal"
+	sheet_plural_name = "crystals"
+
+/material/aluminium
+	name = "aluminium"
+	display_name = "aluminium"
+	use_name = "aluminium"
+	stack_type = /obj/item/stack/material/aluminium
+	sheet_singular_name = "ingot"
+	sheet_plural_name = "ingots"

@@ -170,12 +170,12 @@
 /datum/gear/suit/labcoat/emt
 	display_name = "labcoat, EMT (Medical)"
 	path = /obj/item/clothing/suit/storage/toggle/labcoat/emt
-	allowed_roles = list("Doctor","Chief Medical Officer","Chemist","Paramedic","Geneticist", "Psychiatrist")
+	allowed_roles = list("Physician","Chief Medical Officer","Chemist","Paramedic","Geneticist", "Psychiatrist")
 
 /datum/gear/suit/roles/surgical_apron
 	display_name = "surgical apron"
 	path = /obj/item/clothing/suit/surgicalapron
-	allowed_roles = list("Doctor","Chief Medical Officer")
+	allowed_roles = list("Physician","Chief Medical Officer")
 
 /datum/gear/suit/overalls
 	display_name = "overalls"
@@ -291,6 +291,16 @@
 	path = /obj/item/clothing/suit/storage/forensics/red
 	allowed_roles = list("Detective")
 
+/datum/gear/suit/police/policejacket
+	display_name = "Police Jacket"
+	path = /obj/item/clothing/suit/storage/toggle/policejacket
+	allowed_roles = list("Police Officer", "Chief of Police", "Prison Warden", "Detective")
+
+/datum/gear/suit/police/policehivis
+	display_name = "Police High vis vest"
+	path = /obj/item/clothing/suit/storage/toggle/hazardvest/brightgreen
+	allowed_roles = list("Police Officer", "Chief of Police", "Prison Warden", "Detective")
+
 /datum/gear/suit/wintercoat
 	display_name = "winter coat"
 	path = /obj/item/clothing/suit/storage/hooded/wintercoat
@@ -300,15 +310,10 @@
 	path = /obj/item/clothing/suit/storage/hooded/wintercoat/captain
 	allowed_roles = list("Mayor")
 
-/datum/gear/suit/wintercoat/security
-	display_name = "winter coat, security"
-	path = /obj/item/clothing/suit/storage/hooded/wintercoat/security
-	allowed_roles = list("Police Officer", "Chief of Police", "Prison Warden", "Detective")
-
 /datum/gear/suit/wintercoat/medical
 	display_name = "winter coat, medical"
 	path = /obj/item/clothing/suit/storage/hooded/wintercoat/medical
-	allowed_roles = list("Doctor","Chief Medical Officer","Chemist","Paramedic","Geneticist", "Psychiatrist")
+	allowed_roles = list("Physician","Chief Medical Officer","Chemist","Paramedic","Geneticist", "Psychiatrist")
 
 /datum/gear/suit/wintercoat/science
 	display_name = "winter coat, science"
@@ -449,7 +454,7 @@
 /datum/gear/suit/snowsuit/medical
 	display_name = "snowsuit, medical"
 	path = /obj/item/clothing/suit/storage/snowsuit/medical
-	allowed_roles = list("Doctor","Chief Medical Officer","Chemist","Paramedic","Geneticist", "Psychiatrist")
+	allowed_roles = list("Physician","Chief Medical Officer","Chemist","Paramedic","Geneticist", "Psychiatrist")
 
 /datum/gear/suit/snowsuit/science
 	display_name = "snowsuit, science"
@@ -522,5 +527,15 @@
 
 
 /datum/gear/suit/peterpanblazer/New()
+	..()
+	gear_tweaks = list(gear_tweak_free_color_choice)
+
+
+/datum/gear/suit/colorsuit
+	display_name = "colorable suit"
+	path = /obj/item/clothing/suit/storage/toggle/lawyer/whitejacket
+
+
+/datum/gear/suit/colorsuit/New()
 	..()
 	gear_tweaks = list(gear_tweak_free_color_choice)

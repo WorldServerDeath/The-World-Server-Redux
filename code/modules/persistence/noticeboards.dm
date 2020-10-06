@@ -9,6 +9,15 @@
 	var/base_icon_state = "nboard0"
 	var/const/max_notices = 35
 
+/obj/structure/noticeboard/get_saveable_contents()
+	return notices
+
+/obj/structure/noticeboard/on_persistence_load()
+	notices = contents
+	update_icon()
+	return TRUE
+
+
 /obj/structure/noticeboard/initialize()
 	. = ..()
 
@@ -162,6 +171,9 @@
 		. = TOPIC_HANDLED
 
 	if(href_list["remove"])
+		if(usr.IsAntiGrief())
+			to_chat(user, "<span class='notice'>You don't want to remove this paper.</span>")
+			return
 		remove_paper(locate(href_list["remove"]))
 		add_fingerprint(user)
 		. = TOPIC_REFRESH

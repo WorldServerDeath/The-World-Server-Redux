@@ -35,6 +35,8 @@ log transactions
 	var/view_screen = NO_SCREEN
 	var/datum/effect/effect/system/spark_spread/spark_system
 
+	var/is_printing = FALSE
+
 /obj/machinery/atm/New()
 	..()
 	machine_id = "[station_name()] RT #[GLOB.num_financial_terminals++]"
@@ -62,7 +64,7 @@ log transactions
 		else
 			playsound(loc, 'sound/items/polaroid2.ogg', 50, 1)
 		break
-
+/*
 /obj/machinery/atm/emag_act(var/remaining_charges, var/mob/user)
 	if(!emagged)
 		return
@@ -78,7 +80,7 @@ log transactions
 	var/response = pick("Initiating withdraw. Have a nice day!", "CRITICAL ERROR: Activating cash chamber panic siphon.","PIN Code accepted! Emptying account balance.", "Jackpot!")
 	user << "<span class='warning'>\icon[src] The [src] beeps: \"[response]\"</span>"
 	return 1
-
+*/
 /obj/machinery/atm/attackby(obj/item/I as obj, mob/user as mob)
 	if(computer_deconstruction_screwdriver(user, I))
 		return
@@ -197,9 +199,14 @@ log transactions
 							if(!isemptylist(authenticated_account.expenses))
 								dat += "<br><br><b>Debts:</b><br>"
 								for(var/datum/expense/E in authenticated_account.expenses)
+									var/dept_name
+									if(E.department)
+										dept_name = dept_name_by_id(E.department)
 									var/purpose_name
 									if(E.purpose)
 										purpose_name = " ([E.purpose])"
+										if(dept_name)
+											dat += "([dept_name]) "
 										dat += "<b>[E.name][purpose_name]:</b> [E.amount_left] credits. ([E.cost_per_payroll] per payroll.)<br>"
 							dat += "<br>"
 
@@ -249,8 +256,10 @@ log transactions
 							authenticated_account.money -= transfer_amount
 							log_money(usr, "transferred money to [target_account_number] successfully", authenticated_account.account_number, authenticated_account.owner_name, transfer_amount)
 
-							//create an entry in the account transaction log
-							authenticated_account.add_transaction_log("Account #[target_account_number]", transfer_purpose, -transfer_amount, machine_id)
+							var/datum/money_account/TM = get_account(target_account_number)
+							if(!TM.hidden)
+								//create an entry in the account transaction log
+								authenticated_account.add_transaction_log("Account #[target_account_number]", transfer_purpose, -transfer_amount, machine_id)
 						else
 							usr << "\icon[src]<span class='warning'>Funds transfer failed.</span>"
 							log_money(usr, "failed to transfer money to [target_account_number] (unsuccesful)", authenticated_account.account_number, authenticated_account.owner_name, transfer_amount)
@@ -347,6 +356,14 @@ log transactions
 					else
 						usr << "\icon[src]<span class='warning'>You don't have enough funds to do that!</span>"
 			if("balance_statement")
+				if(is_printing)
+					to_chat(usr, "The ATM is still printing, be patient!")
+					return
+
+				to_chat(usr, "Printing account balance statement...")
+				is_printing = TRUE
+				sleep(15)
+
 				if(authenticated_account)
 					var/obj/item/weapon/paper/R = new(src.loc)
 					R.name = "Account balance: [authenticated_account.owner_name]"
@@ -370,7 +387,18 @@ log transactions
 					playsound(loc, 'sound/items/polaroid1.ogg', 50, 1)
 				else
 					playsound(loc, 'sound/items/polaroid2.ogg', 50, 1)
+
+				is_printing = FALSE
+
 			if ("print_transaction")
+				if(is_printing)
+					to_chat(usr, "The ATM is still printing, be patient!")
+					return
+
+				to_chat(usr, "Printing transaction balance...")
+				is_printing = TRUE
+				sleep(15)
+
 				if(authenticated_account)
 					var/obj/item/weapon/paper/R = new(src.loc)
 					R.name = "Transaction logs: [authenticated_account.owner_name]"
@@ -412,6 +440,8 @@ log transactions
 					playsound(loc, 'sound/items/polaroid1.ogg', 50, 1)
 				else
 					playsound(loc, 'sound/items/polaroid2.ogg', 50, 1)
+
+				is_printing = FALSE
 
 			if("insert_card")
 				if(!held_card)

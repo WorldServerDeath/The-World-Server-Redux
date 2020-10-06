@@ -84,6 +84,9 @@
 		to_chat(usr, "<span class='notice'>You set \the [src] to paint with <font color='[paint_colour]'>a new colour</font>.</span>")
 		return
 
+	if(A.trigger_lot_security_system(user, /datum/lot_security_option/graffiti, "Painting \the [A] with \a [src]."))
+		return
+
 	var/obj/machinery/electronic_display_case/DC = A
 	if(istype(DC))
 		var/choice = input(user, "What do you wish to paint?") as null|anything in list("Glass", "Frame")
@@ -114,11 +117,26 @@
 		WF.color = paint_colour
 		return
 
+	var/obj/machinery/door/blast/gate/G = A
+	if(istype(G))
+		G.color = paint_colour
+		return
+
+	var/obj/machinery/door/window/DW = A
+	if(istype(DW))
+		DW.color = paint_colour
+		return
+
 	var/obj/structure/window/WD = A
 	if(istype(WD))
 		WD.color = paint_colour
 		WD.material_color = paint_colour
 		WD.update_icon()
+		return
+
+	var/obj/structure/fence/FE = A
+	if(istype(FE))
+		FE.color = paint_colour
 		return
 
 	var/obj/machinery/door/airlock/D = A

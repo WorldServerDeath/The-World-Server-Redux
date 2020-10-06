@@ -28,6 +28,8 @@ SUBSYSTEM_DEF(lots)
 
 
 /datum/controller/subsystem/lots/proc/save_all_lots()
+	set background = 1
+
 	if(!config.lot_saving)
 		return FALSE
 
@@ -45,6 +47,11 @@ SUBSYSTEM_DEF(lots)
 		CHECK_TICK
 
 	return 1
+
+/datum/controller/subsystem/lots/proc/refresh_all_lot_turfs()
+	for(var/datum/lot/lots in all_lots)
+		for(var/turf/simulated/wall/T in lots.make_chunk())
+			T.update_icon()
 
 /datum/controller/subsystem/lots/proc/get_lot_by_id(id)
 	for(var/datum/lot/lot in all_lots)

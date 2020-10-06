@@ -16,6 +16,8 @@
 	var/list/datum/expense/expenses = list()		//list of debts and expenses
 	var/fingerprint
 
+	var/hidden = FALSE
+
 /datum/transaction
 	var/target_name = ""
 	var/purpose = ""
@@ -78,14 +80,14 @@
 	GLOB.all_money_accounts.Add(M)
 	return M
 
-/proc/charge_to_account(var/attempt_account_number, var/source_name, var/purpose, var/terminal_id, var/amount)
+/proc/charge_to_account(var/attempt_account_number, var/source_name, var/purpose, var/terminal_id, var/amount, var/leave_log = TRUE)
 
 	for(var/datum/money_account/D in GLOB.all_money_accounts)
 		if(D.account_number == attempt_account_number && !D.suspended || D.account_number == attempt_account_number && !D.suspended)
 			D.money += amount
 			//create a transaction log entry
-
-			D.add_transaction_log(source_name, purpose, amount, terminal_id)
+			if(leave_log)
+				D.add_transaction_log(source_name, purpose, amount, terminal_id)
 			return 1
 
 
@@ -96,7 +98,8 @@
 			var/datum/transaction/T = create_transaction_log(source_name, purpose, amount, terminal_id)
 
 			persist_adjust_balance(attempt_account_number, amount)
-			add_persistent_acc_logs(attempt_account_number, T)
+			if(leave_log)
+				add_persistent_acc_logs(attempt_account_number, T)
 
 			return 1
 
@@ -122,6 +125,9 @@
 
 /proc/get_account(var/account_number)
 	for(var/datum/money_account/D in GLOB.all_money_accounts)
+		if(D.account_number == account_number)
+			return D
+	for(var/datum/money_account/D in GLOB.department_accounts)
 		if(D.account_number == account_number)
 			return D
 
@@ -174,7 +180,8 @@
 // why was this never made until now?
 /datum/money_account/proc/add_transaction_log(name, purpose, amount, terminal_id, date, time)
 	var/T = create_transaction_log(name, purpose, amount, terminal_id, date, time)
-
+	if(!T || !transaction_log)
+		return
 	transaction_log.Add(T)
 	sanitize_values()
 
@@ -190,4 +197,14 @@
 	money = Clamp(money, -MAX_MONEY, MAX_MONEY)
 	if(!transaction_log)
 		transaction_log = list()
+
 	truncate_oldest(transaction_log, max_transaction_logs)
+
+/proc/all_public_accounts(show_hidden = FALSE)
+	var/list/m_accounts = list()
+	for(var/datum/money_account/M in GLOB.all_money_accounts)
+		if(!show_hidden && M.hidden)
+			continue
+		m_accounts += M
+
+	return m_accounts

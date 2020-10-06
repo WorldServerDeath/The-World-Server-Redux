@@ -13,6 +13,7 @@
 	icon = 'icons/obj/flora/snowflora.dmi'
 	icon_state = "snowbush1"
 	anchored = 1
+	plane = MOB_PLANE
 
 /obj/structure/flora/bush/New()
 	..()
@@ -32,7 +33,7 @@
 	icon = 'icons/obj/flora/ausflora.dmi'
 	icon_state = "firstbush_1"
 	anchored = 1
-
+	plane = MOB_PLANE
 
 /obj/structure/flora/ausbushes/attackby(obj/item/I as obj, mob/user as mob)
 	..()
@@ -163,7 +164,7 @@
 	icon = 'icons/obj/plants.dmi'
 	icon_state = "plant-01"
 
-	plane = OBJ_PLANE
+	plane = MOB_PLANE
 
 	var/obj/item/stored_item
 	table_drag = TRUE
@@ -199,7 +200,7 @@
 		to_chat(user, "<span class='notice'>You refrain from putting things into the plant pot.</span>")
 		return
 
-	..()
+
 
 /obj/structure/flora/pottedplant/attack_hand(mob/user)
 	if(!stored_item)

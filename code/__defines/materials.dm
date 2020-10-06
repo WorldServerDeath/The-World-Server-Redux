@@ -10,6 +10,7 @@
 #define MATERIAL_COTTON                  "cotton"
 #define MATERIAL_CRYSTAL                 "crystal"
 #define MATERIAL_SANDSTONE               "sandstone"
+#define MATERIAL_CONCRETE                "concrete"
 #define MATERIAL_LEATHER                 "leather"
 #define MATERIAL_IRON                    "iron"
 #define MATERIAL_PLATINUM                "platinum"
@@ -50,6 +51,10 @@
 #define MATERIAL_CARPET                  "carpet"
 #define MATERIAL_ALUMINIUM               "aluminium"
 #define MATERIAL_NULLGLASS               "nullglass"
+#define MATERIAL_TIN					 "tin"
+#define MATERIAL_SERENDIBITE			 "serendibite"
+#define MATERIAL_PAINITE				 "painite"
+#define MATERIAL_VOID_OPAL				 "void opal"
 
 //woods
 #define MATERIAL_WOOD                    "wood"

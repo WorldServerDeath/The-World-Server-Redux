@@ -15,6 +15,9 @@
 
 	unique_save_vars = list("colour","open")
 
+/obj/item/weapon/lipstick/on_persistence_load()
+	update_icon()
+
 /obj/item/weapon/lipstick/red
 	name = "red lipstick"
 	colour = COLOR_RED
@@ -343,6 +346,7 @@
 	desc = "Careful not to cut yourself on that edge."
 	icon_state = "razorblade"
 	shave_sound = null
+	matter = list(DEFAULT_WALL_MATERIAL = 80)
 
 /obj/item/weapon/razor/blade/disposable
 	name = "disposable razor"

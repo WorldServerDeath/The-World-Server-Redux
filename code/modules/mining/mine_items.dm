@@ -27,7 +27,7 @@
 	var/drill_sound = 'sound/weapons/Genhit.ogg'
 	var/drill_verb = "drilling"
 	sharp = 1
-
+	price_tag = 200
 	var/excavation_amount = 200
 
 /obj/item/weapon/pickaxe/hammer
@@ -110,6 +110,15 @@
 	desc = "Cracks rocks with sonic blasts. This one seems like an improved design."
 	drill_verb = "hammering"
 
+/obj/item/weapon/pickaxe/steel
+	name = "pickaxe"
+	desc = "A pickaxe with a reinforced steel head."
+	drill_verb = "picking"
+	origin_tech = list(TECH_MATERIAL = 1, TECH_ENGINEERING = 1)
+	icon_state = "stpickaxe"
+	item_state = "syringe_0"
+	digspeed = 45
+
 /*****************************Shovel********************************/
 
 /obj/item/weapon/shovel
@@ -124,11 +133,12 @@
 	item_state = "shovel"
 	w_class = ITEMSIZE_NORMAL
 	origin_tech = list(TECH_MATERIAL = 1, TECH_ENGINEERING = 1)
-	matter = list(DEFAULT_WALL_MATERIAL = 50)
+	matter = list(DEFAULT_WALL_MATERIAL = 500)
 	attack_verb = list("bashed", "bludgeoned", "thrashed", "whacked")
 	sharp = 0
 	edge = 1
 	digspeed = 40
+	price_tag = 100
 
 /obj/item/weapon/shovel/spade
 	name = "spade"
@@ -139,6 +149,7 @@
 	throwforce = 7.0
 	w_class = ITEMSIZE_SMALL
 	digspeed = 60
+	price_tag = 60
 
 /**********************Mining car (Crate like thing, not the rail car)**************************/
 

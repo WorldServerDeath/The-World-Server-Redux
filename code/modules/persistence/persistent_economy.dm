@@ -73,13 +73,14 @@ var/datum/economy/bank_accounts/persistent_economy = new()
 
 	var/city_council_control	= TRUE	// If the president has allowed the city council to control the colony.
 
-	var/base_service_charge = 25		// Minimum the council will charge (per payroll) to lots. // control setting not yet implemented
+	var/base_service_charge = 0.05		// Minimum the council will charge (per payroll) to lots. // control setting not yet implemented
+	var/business_registration = 3500	// Fee for starting new businesses. // control setting not yet implemented
 	var/carp_control = FALSE			// If this is disabled, council cannot control carp infestations.
 	var/antivirus = FALSE			// Is the President a boomer?
 	var/meteor_proof = FALSE			// Is the city protected by meteors?
 
 	var/foodstamp_meals = 3
-
+	var/minimum_wage = 15			// Minimum wage for jobs.
 
 /datum/economy/bank_accounts/proc/save_economy()
 //	message_admins("SAVE: Save all department accounts.", 1)
@@ -119,6 +120,11 @@ var/datum/economy/bank_accounts/persistent_economy = new()
 	S["law_STIMM"] << law_STIMM
 	S["law_CYANIDE"] << law_CYANIDE
 	S["law_CHLORAL"] << law_CHLORAL
+	S["law_LSD"] << law_LSD
+	S["law_DMT"] << law_DMT
+	S["law_AYAHUASCA"] << law_AYAHUASCA
+	S["law_BATHSALTS"] << law_BATHSALTS
+	S["law_KROKODIL"] << law_KROKODIL
 
 	S["law_GUNS"] << law_GUNS
 	S["law_SMALLKNIVES"] << law_SMALLKNIVES
@@ -140,6 +146,9 @@ var/datum/economy/bank_accounts/persistent_economy = new()
 	S["carp_control"] << carp_control
 	S["antivirus"] << antivirus
 	S["meteor_proof"] << meteor_proof
+
+
+	S["minimum_wage"] << minimum_wage
 	return TRUE
 
 /datum/economy/bank_accounts/proc/load_accounts()
@@ -180,12 +189,16 @@ var/datum/economy/bank_accounts/persistent_economy = new()
 	S["law_STIMM"] >> law_STIMM
 	S["law_CYANIDE"] >> law_CYANIDE
 	S["law_CHLORAL"] >> law_CHLORAL
+	S["law_LSD"] >> law_LSD
+	S["law_DMT"] >> law_DMT
+	S["law_AYAHUASCA"] >> law_AYAHUASCA
+	S["law_BATHSALTS"] >> law_BATHSALTS
+	S["law_KROKODIL"] >> law_KROKODIL
 
 	S["law_GUNS"] >> law_GUNS
 	S["law_SMALLKNIVES"] >> law_SMALLKNIVES
 	S["law_LARGEKNIVES"] >> law_LARGEKNIVES
 	S["law_EXPLOSIVES"] >> law_EXPLOSIVES
-
 
 	S["voting_age"] >> voting_age
 	S["drinking_age"] >> drinking_age
@@ -201,6 +214,8 @@ var/datum/economy/bank_accounts/persistent_economy = new()
 	S["carp_control"] >> carp_control
 	S["antivirus"] >> antivirus
 	S["meteor_proof"] >> meteor_proof
+
+	S["minimum_wage"] >> minimum_wage
 
 	tax_rate_lower = tax_poor
 	tax_rate_middle = tax_middle

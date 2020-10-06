@@ -178,6 +178,11 @@ var/list/flooring_types
 		'sound/effects/footstep/carpet4.ogg',
 		'sound/effects/footstep/carpet5.ogg'))
 
+/decl/flooring/carpet/browcarpet
+	name = "brown carpet"
+	icon_base = "browncarpet"
+	build_type = /obj/item/stack/tile/carpet/browcarpet
+
 /decl/flooring/carpet/bcarpet
 	name = "black carpet"
 	icon_base = "bcarpet"
@@ -199,7 +204,7 @@ var/list/flooring_types
 	build_type = /obj/item/stack/tile/carpet/sblucarpet
 
 /decl/flooring/carpet/gaycarpet
-	name = "clown carpet"
+	name = "pink carpet"
 	icon_base = "gaycarpet"
 	build_type = /obj/item/stack/tile/carpet/gaycarpet
 
@@ -253,6 +258,30 @@ var/list/flooring_types
 	icon_base = "tile_full"
 	flags = TURF_CAN_BREAK | TURF_CAN_BURN | TURF_IS_FRAGILE
 	build_type = null
+
+/decl/flooring/tiling/new_tile/beige
+	floor_color = "#385e60"
+
+/decl/flooring/tiling/new_tile/blue
+	floor_color = "#8ba7ad"
+
+/decl/flooring/tiling/new_tile/green
+	floor_color = "#46725c"
+
+/decl/flooring/tiling/new_tile/purple
+	floor_color = "#906987"
+
+/decl/flooring/tiling/new_tile/red
+	floor_color = "#964e51"
+
+/decl/flooring/tiling/new_tile/white
+	floor_color = "#d9d9d9"
+
+/decl/flooring/tiling/new_tile/yellow
+	floor_color = "#8c6d46"
+
+/decl/flooring/tiling/new_tile/gray
+	floor_color = "#687172"
 
 /decl/flooring/tiling/new_tile/cargo_one
 	icon_base = "cargo_one_full"
@@ -323,6 +352,29 @@ var/list/flooring_types
 	build_type = /obj/item/stack/tile/floor/yellow
 
 	floor_color = COLOR_BROWN
+
+/decl/flooring/tiling/paleblue
+	name = "floor"
+	icon_base = "white"
+	has_damage_range = null
+	flags = TURF_REMOVE_CROWBAR
+	build_type = /obj/item/stack/tile/floor/paleblue
+
+	floor_color = COLOR_PALE_BLUE_GRAY
+
+/decl/flooring/tiling/lime
+	name = "floor"
+	icon_base = "white"
+	has_damage_range = null
+	flags = TURF_REMOVE_CROWBAR
+	build_type = /obj/item/stack/tile/floor/lime
+
+	floor_color = COLOR_PALE_GREEN_GRAY
+
+/decl/flooring/tiling/diamond
+	icon = 'icons/turf/flooring/decorative.dmi'
+	icon_base = "tiles1"
+	build_type = /obj/item/stack/tile/diamond
 
 /decl/flooring/tiling/dark
 	name = "floor"
@@ -501,10 +553,7 @@ var/list/flooring_types
 /decl/flooring/road/garage
 	icon_base = "garage"
 
-/decl/flooring/diamond
-	icon = 'icons/turf/flooring/decorative.dmi'
-	icon_base = "tiles1"
-	build_type = /obj/item/stack/tile/diamond
+
 
 /decl/flooring/bluegeo
 	icon = 'icons/turf/flooring/decorative.dmi'

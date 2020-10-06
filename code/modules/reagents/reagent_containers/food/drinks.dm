@@ -108,10 +108,10 @@
 /// Drinks. END
 ////////////////////////////////////////////////////////////////////////////////
 
-/obj/item/weapon/reagent_containers/food/drinks/golden_cup
-	desc = "A golden cup"
-	name = "golden cup"
-	icon_state = "golden_cup"
+/obj/item/weapon/reagent_containers/food/drinks/trophy_cup
+	desc = "trophy cup"
+	name = "trophy cup"
+	icon_state = "trophy_cup"
 	item_state = "" //nope :(
 	w_class = ITEMSIZE_LARGE
 	force = 14
@@ -121,8 +121,31 @@
 	volume = 150
 	flags = CONDUCT | OPENCONTAINER
 
+	var/engraving = null
+
+	unique_save_vars = list("engraving")
+
+/obj/item/weapon/reagent_containers/food/drinks/trophy_cup/examine(mob/user)
+	..()
+	if(engraving)
+		to_chat(user, "\"[engraving]\"")
+
+
 /obj/item/weapon/reagent_containers/food/drinks/golden_cup/on_reagent_change()
 	..()
+
+
+/obj/item/weapon/reagent_containers/food/drinks/trophy_cup/gold
+	name = "golden trophy cup"
+	color = COLOR_GOLD
+
+/obj/item/weapon/reagent_containers/food/drinks/trophy_cup/silver
+	name = "silver trophy cup"
+	color = COLOR_SILVER
+
+/obj/item/weapon/reagent_containers/food/drinks/trophy_cup/bronze
+	name = "bronze trophy cup"
+	color = WOOD_COLOR_YELLOW
 
 ///////////////////////////////////////////////Drinks
 //Notes by Darem: Drinks are simply containers that start preloaded. Unlike condiments, the contents can be ingested directly
@@ -272,6 +295,7 @@
 	volume = 120
 	center_of_mass = list("x"=17, "y"=10)
 	drop_sound = 'sound/items/drop/bottle.ogg'
+	matter = list(DEFAULT_WALL_MATERIAL = 1750)
 
 /obj/item/weapon/reagent_containers/food/drinks/shaker/on_reagent_change()
 	..()
@@ -296,6 +320,7 @@
 	volume = 60
 	center_of_mass = list("x"=17, "y"=7)
 	drop_sound = 'sound/items/drop/bottle.ogg'
+	matter = list(DEFAULT_WALL_MATERIAL = 2750)
 
 /obj/item/weapon/reagent_containers/food/drinks/flask/on_reagent_change()
 	..()
@@ -330,6 +355,7 @@
 	icon_state = "vacuumflask"
 	volume = 60
 	center_of_mass = list("x"=15, "y"=4)
+	matter = list(DEFAULT_WALL_MATERIAL = 2750)
 
 /obj/item/weapon/reagent_containers/food/drinks/britcup
 	name = "cup"

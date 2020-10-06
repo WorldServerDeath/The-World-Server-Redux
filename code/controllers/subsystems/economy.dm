@@ -4,18 +4,47 @@ SUBSYSTEM_DEF(economy)
 	flags = SS_NO_FIRE
 
 	var/list/all_departments = list()
+	var/list/all_department_accounts = list()
+	var/list/all_public_depts = list()
+	var/list/all_private_depts = list()
+	var/list/all_hidden_depts = list()
+	var/list/all_business_depts = list()
+	var/list/all_money_accounts_list = list()
 
 /datum/controller/subsystem/economy/Initialize(timeofday)
 	setup_economy()
+	load_economy()
+	load_business_departments()
+	init_expenses()
+	persistent_economy.load_accounts()
 	link_economy_accounts()
 
 	all_departments = GLOB.departments
-
-	load_economy()
-	init_expenses()
-	persistent_economy.load_accounts()
-
+	all_department_accounts = GLOB.department_accounts
+	all_public_depts = GLOB.public_departments
+	all_private_depts = GLOB.private_departments
+	all_hidden_depts = GLOB.hidden_departments
+	all_business_depts = GLOB.business_departments
+	all_money_accounts_list = GLOB.all_money_accounts
 	. = ..()
+
+/datum/controller/subsystem/economy/proc/get_all_nonbusiness_departments()
+	var/list/depts = list()
+	for(var/datum/department/D in all_departments)
+		if(D.dept_type == BUSINESS_DEPARTMENT)
+			continue
+		depts |= D
+
+	return depts
+
+/datum/controller/subsystem/economy/proc/get_all_business_departments()
+	var/list/depts = list()
+	for(var/datum/department/D in all_departments)
+		if(D.dept_type != BUSINESS_DEPARTMENT)
+			continue
+		depts |= D
+
+	return depts
 
 /datum/controller/subsystem/economy/proc/setup_economy()
 	for(var/instance in subtypesof(/datum/department))
@@ -39,11 +68,13 @@ SUBSYSTEM_DEF(economy)
 
 	for(var/obj/machinery/cash_register/CR in GLOB.transaction_devices)
 		if(CR.account_to_connect)
-			var/datum/money_account/M = dept_acc_by_id(CR.account_to_connect)
-			CR.linked_account = M.account_number
+			CR.connect_to_dept()
 
 	for(var/obj/machinery/status_display/money_display/MD in GLOB.money_displays)
 		MD.link_to_account()
+
+	for(var/obj/machinery/inventory_machine/nanotrasen/NTBOX in GLOB.inventory_boxes)
+		NTBOX.link_nt_account()
 
 /datum/controller/subsystem/economy/proc/charge_head_department(amount, purpose)
 	if(!using_map || !HEAD_DEPARTMENT) // shouldn't happen, but just in case
@@ -81,7 +112,7 @@ SUBSYSTEM_DEF(economy)
 /datum/controller/subsystem/economy/proc/collect_all_earnings()
 	// collects money from all cash registers and puts 'em in their relavent accounts
 	for(var/obj/machinery/cash_register/CR in GLOB.transaction_devices)
-		if(CR.linked_account && CR.account_to_connect)
+		if(CR.linked_account && CR.account_to_connect && CR.cash_stored)
 			charge_to_account(CR.linked_account, "Money Collection", "Money Left in Till", CR.machine_id, CR.cash_stored)
 			CR.cash_stored = 0
 
@@ -91,96 +122,6 @@ SUBSYSTEM_DEF(economy)
 	collect_all_earnings()
 
 	return TRUE
-
-/datum/controller/subsystem/economy/proc/save_economy()
-	prepare_economy_save()
-
-	if(isemptylist(GLOB.departments))
-		message_admins("Economy Subsystem error: No department accounts found. Unable to save.", 1)
-		return FALSE
-
-	// save each department to a save file.
-	for(var/datum/department/D in GLOB.departments)
-
-		D.sanitize_values()
-
-		if(!D.name || !D.id || !D.bank_account)
-			continue
-
-		var/sav_folder = "public_departments"
-
-		if(D.dept_type == PUBLIC_DEPARTMENT)
-			sav_folder = "public_departments"
-		if(D.dept_type == PRIVATE_DEPARTMENT)
-			sav_folder = "private_departments"
-		if(D.dept_type == EXTERNAL_DEPARTMENT)
-			sav_folder = "external_departments"
-
-		var/path = "data/persistent/departments/[sav_folder]/[D.name].sav"
-
-		var/savefile/S = new /savefile(path)
-		if(!fexists(path))
-			return 0
-		if(!S)
-			return 0
-		S.cd = "/"
-
-		if(D.has_bank && D.bank_account)
-			D.bank_account.sanitize_values()
-
-			S["money"] << D.bank_account.money
-			S["account_number"] << D.bank_account.account_number
-			S["remote_access_pin"] << D.bank_account.remote_access_pin
-			S["transaction_log"] << D.bank_account.transaction_log
-
-		S["blacklisted_employees"] << D.blacklisted_employees
-
-	return TRUE
-
-
-/datum/controller/subsystem/economy/proc/load_economy()
-	if(isemptylist(GLOB.departments))
-		message_admins("Economy Subsystem error: No department accounts found. Unable to load.", 1)
-		return FALSE
-
-	// save each department to a save file.
-	for(var/datum/department/D in GLOB.departments)
-
-		D.sanitize_values()
-
-		if(!D.name || !D.id || !D.bank_account)
-			continue
-
-		var/sav_folder = "public_departments"
-
-		if(D.dept_type == PUBLIC_DEPARTMENT)
-			sav_folder = "public_departments"
-		if(D.dept_type == PRIVATE_DEPARTMENT)
-			sav_folder = "private_departments"
-		if(D.dept_type == EXTERNAL_DEPARTMENT)
-			sav_folder = "external_departments"
-
-
-		var/path = "data/persistent/departments/[sav_folder]/[D.name].sav"
-
-		var/savefile/S = new /savefile(path)
-		if(!fexists(path))
-			save_economy()
-			return 0
-		if(!S)
-			return 0
-		S.cd = "/"
-
-		if(D.has_bank && D.bank_account)
-			S["money"] >> D.bank_account.money
-			S["account_number"] >> D.bank_account.account_number
-			S["remote_access_pin"] >> D.bank_account.remote_access_pin
-			S["transaction_log"] >> D.bank_account.transaction_log
-
-		S["blacklisted_employees"] >> D.blacklisted_employees
-
-	return TRUE
-
 
 
 

@@ -21,6 +21,8 @@
 
 	unique_save_vars = list("status")
 
+	price_tag = 200
+
 /obj/item/weapon/melee/baton/get_cell()
 	return bcell
 
@@ -163,6 +165,10 @@
 /obj/item/weapon/melee/baton/apply_hit_effect(mob/living/target, mob/living/user, var/hit_zone)
 	if(isrobot(target))
 		return ..()
+
+	if(user.IsAntiGrief())
+		target.visible_message("<span class='warning'>[user] tries to use [src] but fails!</span>")
+		return
 
 	var/agony = agonyforce
 	var/stun = stunforce

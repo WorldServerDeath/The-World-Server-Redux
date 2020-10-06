@@ -33,7 +33,7 @@ SUBSYSTEM_DEF(payroll)
 
 /datum/controller/subsystem/payroll/proc/payroll(var/datum/data/record/G)
 	var/bank_number = G.fields["bank_account"]
-	var/datum/job/job = job_master.GetJob(G.fields["real_rank"])
+	var/datum/job/job = SSjobs.GetJob(G.fields["real_rank"])
 	var/department
 	var/class = G.fields["economic_status"]
 	var/name = G.fields["name"]
@@ -65,6 +65,8 @@ SUBSYSTEM_DEF(payroll)
 //		message_admins("ERROR: Could not find a bank account for [bank_number].", 1)
 		return
 
+	if(!job)
+		return
 
 	department = job.department
 
@@ -117,7 +119,7 @@ SUBSYSTEM_DEF(payroll)
 
 	if(wage > department_account.get_balance())
 		// If there's no money in the department account, tough luck. Not getting paid.
-		bank_account.add_transaction_log(bank_account.owner_name, "[department] Payroll: Failed (Inadequate Department Funds)", 0, "[department] Funding Account")
+		bank_account.add_transaction_log(bank_account.owner_name, "[department_account.name] Payroll: Failed (Inadequate Department Funds)", 0, "[department] Funding Account")
 		return
 
 	if(age > 17) // Do they pay tax?

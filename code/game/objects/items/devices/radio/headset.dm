@@ -4,7 +4,7 @@
 	var/radio_desc = ""
 	icon_state = "headset"
 	item_state = null //To remove the radio's state
-	matter = list(DEFAULT_WALL_MATERIAL = 75)
+	matter = list(DEFAULT_WALL_MATERIAL = 75, "copper" = 50)
 	subspace_transmission = 1
 	canhear_range = 0 // can't hear headsets from very far away
 	slot_flags = SLOT_EARS
@@ -59,10 +59,12 @@
 
 /obj/item/device/radio/headset/receive_range(freq, level, aiOverride = 0)
 	if (aiOverride)
+		playsound(loc, 'sound/effects/radio_common.ogg', 25, 1, 1)
 		return ..(freq, level)
 	if(ishuman(src.loc))
 		var/mob/living/carbon/human/H = src.loc
 		if(H.l_ear == src || H.r_ear == src)
+			playsound(loc, 'sound/effects/radio_common.ogg', 25, 1, 1)
 			return ..(freq, level)
 	return -1
 
@@ -339,6 +341,8 @@
 	var/radio_enabled = 1
 
 /obj/item/device/radio/headset/mmi_radio/receive_range(freq, level)
+	if(!src.loc)
+		return
 	if (!radio_enabled || istype(src.loc.loc, /mob/living/silicon) || istype(src.loc.loc, /obj/item/organ/internal))
 		return -1 //Transciever Disabled.
 	return ..(freq, level, 1)

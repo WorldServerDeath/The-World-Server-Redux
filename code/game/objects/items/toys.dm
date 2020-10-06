@@ -360,6 +360,11 @@
 	return
 
 /obj/item/toy/waterflower/afterattack(atom/A as mob|obj, mob/user as mob)
+	if (istype(A, /obj/machinery/inventory_machine ))
+		return
+
+	if(!reagents)
+		return
 
 	if (istype(A, /obj/item/weapon/storage/backpack ))
 		return
@@ -534,7 +539,7 @@
 	name = "Assistant action figure"
 	desc = "A \"Space Life\" brand Assistant action figure."
 	icon_state = "assistant"
-	toysay = "Grey tide station wide!"
+	toysay = "Grey tide city wide!"
 
 /obj/item/toy/figure/atmos
 	name = "Atmospheric Technician action figure"

@@ -8,11 +8,12 @@
 	total_positions = 1
 	spawn_positions = 1
 	supervisors = "the Mayor"
+	subordinates = "the maintenance department"
 	selection_color = "#7F6E2C"
 	idtype = /obj/item/weapon/card/id/engineering/head
 	req_admin_notify = 1
-	email_domain = "cityworks.gov.nt"
-	wage = 330
+
+	wage = 390
 
 	minimum_character_age = 25
 	ideal_character_age = 50
@@ -57,19 +58,19 @@
 */
 /datum/job/atmos
 	title = "Maintenance Worker"
-	email_domain = "cityworks.gov.nt"
+
 	flag = ATMOSTECH
 	department_flag = ENGSEC
 	faction = "City"
-	email_domain = "cityworks.gov.nt"
+
 	department = DEPT_MAINTENANCE
 	total_positions = 3
 	spawn_positions = 2
 	supervisors = "the maintenance director"
 	selection_color = "#5B4D20"
 	idtype = /obj/item/weapon/card/id/engineering/atmos
-	wage = 60
-	access = list(access_engine, access_engine_equip, access_janitor, access_tech_storage, access_construction, access_atmospherics, access_external_airlocks, access_medical, access_medical_equip, access_morgue, access_eva, access_maint_tunnels, access_external_airlocks)
+	wage = 50
+	access = list(access_engine, access_engine_equip, access_janitor, access_tech_storage, access_construction, access_atmospherics, access_external_airlocks, access_eva, access_maint_tunnels, access_external_airlocks)
 	minimal_access = list(access_engine, access_engine_equip, access_janitor, access_tech_storage, access_construction, access_atmospherics, access_external_airlocks, access_medical, access_medical_equip, access_morgue, access_eva, access_maint_tunnels, access_external_airlocks)
 
 	minimal_player_age = 3
@@ -84,17 +85,17 @@
 	title = "Sanitation Technician"
 	flag = JANITOR
 	faction = "City"
-	department_flag = ENGSEC
+	department_flag = CIVILIAN
 	department = DEPT_MAINTENANCE
 	total_positions = 2
 	spawn_positions = 2
 	supervisors = "the maintenance director"
 	selection_color = "#515151"
-	email_domain = "sanitation.gminus.plux.gov.nt"
+
 	idtype = /obj/item/weapon/card/id/civilian/janitor
-	access = list(access_janitor, access_maint_tunnels)
+	access = list(access_engine, access_engine_equip, access_external_airlocks, access_janitor, access_maint_tunnels)
 	minimal_access = list(access_janitor, access_maint_tunnels)
 	minimum_character_age = 16 //Not making it any younger because being a janitor requires a lot of labor, or maybe it just means I'm very lazy? Oh well
-	wage = 20
+	wage = 40
 	outfit_type = /decl/hierarchy/outfit/job/service/janitor
 	alt_titles = list("Recycling Technician", "Sanitation Engineer")

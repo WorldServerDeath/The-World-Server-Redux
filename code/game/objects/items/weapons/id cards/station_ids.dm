@@ -132,7 +132,7 @@
 
 /obj/item/weapon/card/id/initialize()
 	. = ..()
-	var/datum/job/J = job_master.GetJob(rank)
+	var/datum/job/J = SSjobs.GetJob(rank)
 	if(J)
 		access = J.get_access()
 
@@ -246,8 +246,8 @@
 	secondary_color = rgb(223,255,255)
 
 /obj/item/weapon/card/id/medical/doctor
-	assignment = "Physician"
-	rank = "Physician"
+	assignment = "Doctor"
+	rank = "Doctor"
 	job_access_type = /datum/job/doctor
 
 /obj/item/weapon/card/id/medical/chemist
@@ -370,11 +370,6 @@
 	assignment = "Research Assistant"
 	rank = "Research Assistant"
 	job_access_type = /datum/job/scienceintern
-
-/obj/item/weapon/card/id/science/rguard
-	assignment = "Research Security"
-	rank = "Research Security"
-	job_access_type = /datum/job/rguard
 
 /obj/item/weapon/card/id/science/head
 	name = "identification card"

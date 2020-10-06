@@ -1,5 +1,13 @@
-/datum/lot/proc/save_metadata()
-	var/full_path = "[path][id]_meta.sav"
+/datum/lot/proc/save_metadata(new_path)
+	set background = 1
+
+	var/taken_path = path
+
+	if(new_path)
+		taken_path = new_path
+
+	var/full_path = "[taken_path][id]_meta.sav"
+
 	if(!full_path)			return 0
 
 	var/savefile/S = new /savefile(full_path)
@@ -12,7 +20,9 @@
 	sanitize_lot()
 
 	S["name"] 				<<		name
+	S["desc"] 				<<		desc
 	S["price"] 				<< 		price
+	S["rent"] 				<< 		rent
 	S["landlord"] 				<<		landlord
 	S["tenants"] 				<<		tenants
 	S["applied_tenants"] 		<<		applied_tenants
@@ -36,7 +46,9 @@
 	S.cd = "/"
 
 	S["name"] 				>>		name
+	S["desc"] 				>>		desc
 	S["price"] 				>> 		price
+	S["rent"] 				>> 		rent
 	S["landlord"] 				>>		landlord
 	S["tenants"] 				>>		tenants
 	S["applied_tenants"] 		>>		applied_tenants
@@ -67,61 +79,56 @@
 	if(!notes)
 		notes = list()
 
+	for(var/datum/tenant/T in tenants)
+		T.account_balance = round(T.account_balance)
+
+	if(landlord)
+		landlord.account_balance = round(landlord.account_balance)
+
 	lot_area.name = name
 
 	truncate_oldest(landlord_checkbook, MAX_LANDLORD_LOGS)
 	truncate_oldest(notes, MAX_LANDLORD_LOGS)
 
-/datum/lot/proc/get_coordinates()
-	for(var/obj/effect/landmark/lot_data/lot_data)
-		if(lot_data.lot_id == id)
-			if( istype(lot_data, /obj/effect/landmark/lot_data/top_left) )
-				top_left = lot_data.loc
-			else if( istype(lot_data,/obj/effect/landmark/lot_data/bottom_right) )
-				bottom_right = lot_data.loc
-
-	lot_area = get_area(top_left)
-
-	if(top_left && bottom_right && lot_area)
-		return 1
-
-	return 0
-
 
 /datum/lot/proc/save_lot_data()
-	if(!top_left || !bottom_right)
-		message_admins("SAVE: [name] Issue with saving top left/bottom right coordinates. Top Left: [top_left] Bottom Right: [bottom_right]", 1)
+	set background = 1
+
+	if(!lot_area)
+		message_admins("SAVE: [id] Issue with finding lot area for [name].", 1)
 		return FALSE
 
 	if(!save_metadata())
 		message_admins("SAVE: [name] Could not save lot metadata - ownership details and payments may not be saved! Continuing...", 1)
 
 
-	if(!save_map(top_left, bottom_right, id, path, TRUE, FALSE))
-		message_admins("SAVE: [name] Could not save map data. Call developers!", 1)
+	if(!save_map(id, path, TRUE, FALSE))
+		to_chat(world, "<B>SAVE: [name] Could not save map data. Call developers!</B>")
 		return FALSE
 
-	message_admins("Successfully saved lot ID: '[id]'", 1)
+	to_chat(world, "<B>SAVE: Successfully saved lot ID: '[id]'</B>")
 
 	return TRUE
 
 /datum/lot/proc/backup_lot()
-	if(!top_left || !bottom_right)
-		message_admins("SAVE: [name] Issue with saving top left/bottom right coordinates. Top Left: [top_left] Bottom Right: [bottom_right]", 1)
+	set background = 1
+
+	if(!lot_area)
+		message_admins("SAVE: [id] Issue with finding lot area for [name].", 1)
 		return FALSE
 
-	if(!save_metadata())
-		message_admins("SAVE: [name] Could not save lot metadata - ownership details and payments may not be saved! Continuing...", 1)
+	if(!save_metadata("data/persistent/lots/backup/[get_real_year()]/[NumMonth2TextMonth(get_real_month())]/[get_real_day()]/"))
+		message_admins("SAVE: [id] Could not save lot metadata - ownership details and payments may not be saved! Continuing...", 1)
 
-	if(!save_map(top_left, bottom_right, id, "data/persistent/lots/backup/[get_real_year()]/[NumMonth2TextMonth(get_real_month())]/[get_real_day()]/", TRUE, FALSE))
-		message_admins("SAVE: [name] Could not backup map data. Call developers!", 1)
+	if(!save_map(id, "data/persistent/lots/backup/[get_real_year()]/[NumMonth2TextMonth(get_real_month())]/[get_real_day()]/", TRUE, FALSE))
+		message_admins("SAVE: [id] Could not backup map data. Call developers!", 1)
 		return FALSE
 
 	return TRUE
 
 
 /datum/lot/proc/load_lot()
-	if(!top_left || !bottom_right)
+	if(!lot_area)
 		return FALSE
 
 	if(!config.lot_saving)
@@ -130,10 +137,16 @@
 	var/full_path = "[path][id].sav"
 	if(fexists(full_path))
 		for(var/obj/O in lot_area)
+			if(O.dont_save)
+				continue
+
 			QDEL_NULL(O)
 
-		// one more time, as some things that delete leave things behind.
+		// one more time, as some things that delete leave things behind. Sigh.
 		for(var/obj/O in lot_area)
+			if(O.dont_save)
+				continue
+
 			QDEL_NULL(O)
 
 		allow_saving = FALSE
@@ -141,12 +154,12 @@
 			allow_saving = TRUE
 
 		for(var/obj/O in lot_area)
-			CHECK_TICK
 			O.on_persistence_load()
-
-		for(var/turf/T in lot_area)
 			CHECK_TICK
+		for(var/turf/simulated/wall/T in lot_area)
 			T.on_persistence_load()
+			T.update_material()
+			CHECK_TICK
 	return 1
 
 
@@ -165,7 +178,7 @@
 	return e_map
 
 /datum/lot/proc/make_chunk()
-	var/map_turfs = get_map_turfs(top_left, bottom_right)
+	var/list/map_turfs = get_area_turfs(lot_area)
 
 	return map_turfs
 

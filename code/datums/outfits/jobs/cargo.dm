@@ -10,6 +10,8 @@
 	id_type = /obj/item/weapon/card/id/cargo/head
 	pda_type = /obj/item/device/pda/quartermaster
 	l_ear = /obj/item/device/radio/headset/headset_cargo
+	backpack_contents = list(
+	/obj/item/weapon/card/department/factory = 1)
 
 /decl/hierarchy/outfit/job/cargo/cargo_tech
 	name = OUTFIT_JOB_NAME("Factory Worker")
@@ -19,7 +21,7 @@
 	l_ear = /obj/item/device/radio/headset/headset_mine
 
 /decl/hierarchy/outfit/job/cargo/mining
-	name = OUTFIT_JOB_NAME("Shaft miner")
+	name = OUTFIT_JOB_NAME("Miner")
 	uniform = /obj/item/clothing/under/rank/miner
 	l_ear = /obj/item/device/radio/headset/headset_mine
 	backpack = /obj/item/weapon/storage/backpack/industrial

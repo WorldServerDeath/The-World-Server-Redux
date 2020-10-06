@@ -4,17 +4,23 @@
 	var/_has_printer = 1
 	var/_has_battery = 0
 
+	dont_save = TRUE
+
 /obj/machinery/modular_computer/console/preset/New()
 	. = ..()
 	if(!cpu)
 		return
 	if(_has_id_slot)
 		cpu.card_slot = new/obj/item/weapon/computer_hardware/card_slot(cpu)
+		cpu.card_slot.dont_save = TRUE
 	if(_has_printer)
 		cpu.nano_printer = new/obj/item/weapon/computer_hardware/nano_printer(cpu)
+		cpu.nano_printer.dont_save = TRUE
 	if(_has_battery)
 		cpu.battery_module = new/obj/item/weapon/computer_hardware/battery_module/super(cpu)
+		cpu.battery_module.dont_save = TRUE
 	install_programs()
+
 
 // Override in child types to install preset-specific programs.
 /obj/machinery/modular_computer/console/preset/proc/install_programs()
@@ -85,7 +91,7 @@
 	cpu.hard_drive.store_file(new/datum/computer_file/program/digitalwarrant())
 	cpu.hard_drive.store_file(new/datum/computer_file/program/candidate_registration())
 	cpu.hard_drive.store_file(new/datum/computer_file/program/landlord_management())
-//	cpu.hard_drive.store_file(new/datum/computer_file/program/business_manager())
+	cpu.hard_drive.store_file(new/datum/computer_file/program/business_manager())
 	cpu.hard_drive.store_file(new/datum/computer_file/program/crim_record())
 
 
@@ -118,7 +124,7 @@
 	cpu.hard_drive.store_file(new/datum/computer_file/program/library())
 	cpu.hard_drive.store_file(new/datum/computer_file/program/candidate_registration())
 	cpu.hard_drive.store_file(new/datum/computer_file/program/landlord_management())
-//	cpu.hard_drive.store_file(new/datum/computer_file/program/business_manager())
+	cpu.hard_drive.store_file(new/datum/computer_file/program/business_manager())
 
 // ===== GOVERNMENT CONSOLE =====
 /obj/machinery/modular_computer/console/preset/government
@@ -139,5 +145,5 @@
 	cpu.hard_drive.store_file(new/datum/computer_file/program/email_administration())
 	cpu.hard_drive.store_file(new/datum/computer_file/program/landlord_management())
 	cpu.hard_drive.store_file(new/datum/computer_file/program/presidential_portal())
-//	cpu.hard_drive.store_file(new/datum/computer_file/program/business_manager())
+	cpu.hard_drive.store_file(new/datum/computer_file/program/business_manager())
 	cpu.hard_drive.store_file(new/datum/computer_file/program/crim_record())

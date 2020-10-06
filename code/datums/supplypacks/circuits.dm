@@ -4,9 +4,9 @@
 */
 
 /datum/supply_pack/circuits
-	group = "Circuits"
+	group = "Business Circuits"
 	containertype = /obj/structure/closet/crate
-
+	spend_type = SPEND_BUSINESS
 
 
 
@@ -20,7 +20,8 @@
 	/obj/item/weapon/circuitboard/gibber,
 	/obj/item/weapon/circuitboard/cereal,
 	/obj/item/weapon/circuitboard/icecream_vat,
-	/obj/item/weapon/circuitboard/grinder)
+	/obj/item/weapon/circuitboard/grinder,
+	/obj/item/weapon/circuitboard/condimaster)
 	name = "Kitchen Circuit Set"
 	cost = 1000
 	containertype = /obj/structure/closet/crate
@@ -70,21 +71,115 @@
 	/obj/item/weapon/circuitboard/botany_editor,
 	/obj/item/weapon/circuitboard/seed_extractor,
 	/obj/item/weapon/circuitboard/honey_extractor)
-	name = "Kitchen Circuit Set"
-	cost = 400
+	name = "Botany Circuit Set"
+	cost = 700
 	containertype = /obj/structure/closet/crate
-	containername = "Kitchen Circuit Set"
+	containername = "Botany Circuit Set"
 
 /datum/supply_pack/circuits/tailoring
-	contains = list(/obj/item/weapon/circuitboard/dye_generator)
+	contains = list(/obj/item/weapon/circuitboard/dye_generator,
+	/obj/item/weapon/circuitboard/dye_generator/commercial)
 	name = "Tailoring Circuit Set"
-	cost = 20
+	cost = 200
 	containertype = /obj/structure/closet/crate
 	containername = "Tailoring Circuit Set"
 
-/datum/supply_pack/circuits/display_case
-	contains = list(/obj/item/weapon/circuitboard/display_case)
-	name = "Display Case Circuit"
-	cost = 1200
+/datum/supply_pack/circuits/popcorn_machine
+	contains = list(/obj/item/weapon/circuitboard/popcorn_machine)
+	name = "Popcorn Vendor Circuit"
+	cost = 500
 	containertype = /obj/structure/closet/crate
-	containername = "Display Case Circuit"
+	containername = "Popcorn Vendor Circuit"
+
+/datum/supply_pack/circuits/smartfridge
+	contains = list(/obj/item/weapon/circuitboard/smartfridge)
+	name = "Smartfridge Circuit"
+	cost = 500
+	containertype = /obj/structure/closet/crate
+	containername = "Smartfridge Circuit"
+
+/datum/supply_pack/circuits/smartfridge/food
+	contains = list(/obj/item/weapon/circuitboard/smartfridge/food)
+	name = "Food Smartfridge Circuit"
+	cost = 500
+	containertype = /obj/structure/closet/crate
+	containername = "Food Smartfridge Circuit"
+
+
+/datum/supply_pack/circuits/token_machine
+	contains = list(/obj/item/weapon/circuitboard/token_machine)
+	name = "Token Dispenser Circuit"
+	cost = 200
+	containertype = /obj/structure/closet/crate
+	containername = "Token Dispenser Circuit"
+
+/datum/supply_pack/circuits/bounty_machine
+	contains = list(/obj/item/weapon/circuitboard/bounty_machine)
+	name = "bounty-T Circuit"
+	cost = 8000
+	containertype = /obj/structure/closet/crate
+	containername = "Bounty Machine Circuit"
+
+/datum/supply_pack/circuits/forensics
+	contains = list(
+	/obj/item/weapon/circuitboard/dna_analyzer,
+	/obj/item/weapon/circuitboard/microscope,
+	)
+	name = "Forensics Circuits"
+	cost = 800
+	containertype = /obj/structure/closet/crate
+	containername = "Forensics Circuits"
+
+/datum/supply_pack/circuits/inventory_box
+	contains = list(/obj/item/weapon/circuitboard/inventory_box)
+	name = "Inventory box Circuit"
+	cost = 6000
+	containertype = /obj/structure/closet/crate
+	containername = "Inventory Box Circuit"
+
+/datum/supply_pack/circuits/science
+	contains = list(/obj/item/weapon/circuitboard/rdconsole/business,
+					/obj/item/weapon/circuitboard/rdserver/business,
+					/obj/item/weapon/circuitboard/protolathe,
+					/obj/item/weapon/circuitboard/circuit_imprinter,
+					/obj/item/weapon/circuitboard/destructive_analyzer)
+
+	name = "Research Circuits"
+	cost = 10000 // a huge profit maker, so should be expensive. the entirety of research in one crate. has science gone too far?
+	containertype = /obj/structure/closet/crate/secure/science
+	containername = "Research Circuits"
+
+/datum/supply_pack/circuits/robotics
+	contains = list(/obj/item/weapon/circuitboard/prosthetics/business,
+					/obj/item/weapon/circuitboard/mechfab/business)
+
+	name = "Robotics Circuits"
+	cost = 4000
+	containertype = /obj/structure/closet/crate/secure/science
+	containername = "Robotics Circuits"
+
+/datum/supply_pack/circuits/autolathe
+	contains = list(/obj/item/weapon/circuitboard/autolathe)
+
+	name = "Autolathe Circuit"
+	cost = 3000
+	containertype = /obj/structure/closet/crate/secure
+	containername = "Autolathe Circuit"
+
+/datum/supply_pack/circuits/sewing_machine
+	contains = list(/obj/item/weapon/circuitboard/autolathe/sewing_machine)
+
+	name = "Sewing Machine Circuit"
+	cost = 3000
+	containertype = /obj/structure/closet/crate/secure
+	containername = "Sewing Machine Circuit"
+
+
+/datum/supply_pack/circuits/expense_manager
+	contains = list(/obj/item/weapon/circuitboard/expense_manager)
+
+	name = "Expense Manager Circuit"
+	cost = 9000
+	containertype = /obj/structure/closet/crate/secure
+	containername = "Business Expense Manager Circuit"
+

@@ -3,6 +3,7 @@
 
 
 /obj/item/trash
+	name = "trash"
 	var/age = 0
 
 /obj/item/trash/New(var/newloc, var/_age)
@@ -56,7 +57,7 @@
 	icon_state = "sosjerky"
 
 /obj/item/trash/unajerky
-	name = "Moghes Imported Sissalik Jerky"
+	name = "Sol Imported Lizard Jerky"
 	icon_state = "unathitinred"
 
 /obj/item/trash/syndi_cakes

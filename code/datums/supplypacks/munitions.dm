@@ -5,9 +5,11 @@
 
 /datum/supply_pack/munitions
 	group = "Munitions"
+	spend_type = SPEND_WEAPONS
 
 /datum/supply_pack/randomised/munitions
 	group = "Munitions"
+	spend_type = SPEND_WEAPONS
 
 /datum/supply_pack/munitions/weapons
 	name = "Weapons - Security basic equipment"
@@ -19,7 +21,7 @@
 			/obj/item/weapon/gun/projectile/colt/detective = 2,
 			/obj/item/weapon/storage/box/flashbangs = 2
 			)
-	cost = 195
+	cost = 1950
 	containertype = /obj/structure/closet/crate/secure/gear
 	containername = "Security equipment crate"
 	access = access_security
@@ -68,11 +70,26 @@
 	contains = list(
 			/obj/item/weapon/storage/box/shotgunammo = 2,
 			/obj/item/weapon/storage/box/shotgunshells = 2,
+			/obj/item/weapon/gun/projectile/shotgun/doublebarrel = 5,
+			/obj/item/weapon/gun/projectile/shotgun/doublebarrel/sawn = 5,
 			/obj/item/weapon/gun/projectile/shotgun/pump/combat = 5
 			)
-	cost = 2215
+	cost = 4215
 	containertype = /obj/structure/closet/crate/secure/weapon
 	containername = "Shotgun crate"
+	access = access_armory
+
+/datum/supply_pack/munitions/fourtyfive
+	name = "Weapons - 45 crate"
+	contains = list(
+			/obj/item/weapon/gun/projectile/colt = 5,
+			/obj/item/weapon/gun/projectile/sec = 5,
+			/obj/item/weapon/gun/projectile/sec/wood = 5,
+			/obj/item/weapon/gun/projectile/sec/flash = 5,
+			)
+	cost = 4200
+	containertype = /obj/structure/closet/crate/secure/weapon
+	containername = "45 crate"
 	access = access_armory
 
 /datum/supply_pack/munitions/erifle
@@ -150,7 +167,7 @@
 			/obj/item/weapon/storage/box/shotgunammo = 2,
 			/obj/item/weapon/storage/box/shotgunshells = 2
 			)
-	cost = 25
+	cost = 100
 	containertype = /obj/structure/closet/crate/secure
 	containername = "Ballistic ammunition crate"
 	access = access_armory
@@ -158,7 +175,7 @@
 /datum/supply_pack/munitions/beanbagammo
 	name = "Ammunition - Beanbag shells"
 	contains = list(/obj/item/weapon/storage/box/beanbags = 3)
-	cost = 25
+	cost = 100
 	containertype = /obj/structure/closet/crate
 	containername = "Ballistic ammunition crate"
 	access = null
@@ -166,7 +183,7 @@
 /datum/supply_pack/munitions/bsmgammo
 	name = "Ammunition - 9mm top mounted lethal"
 	contains = list(/obj/item/ammo_magazine/m9mmt = 6)
-	cost = 25
+	cost = 100
 	containertype = /obj/structure/closet/crate/secure
 	containername = "Ballistic ammunition crate"
 	access = access_armory
@@ -174,7 +191,7 @@
 /datum/supply_pack/munitions/bsmgammorubber
 	name = "Ammunition - 9mm top mounted rubber"
 	contains = list(/obj/item/ammo_magazine/m9mmt/rubber = 6)
-	cost = 25
+	cost = 100
 	containertype = /obj/structure/closet/crate/secure
 	containername = "Ballistic ammunition crate"
 	access = access_security
@@ -182,7 +199,7 @@
 /datum/supply_pack/munitions/brifleammo
 	name = "Ammunition - 7.62mm lethal"
 	contains = list(/obj/item/ammo_magazine/m762 = 6)
-	cost = 25
+	cost = 100
 	containertype = /obj/structure/closet/crate/secure
 	containername = "Ballistic ammunition crate"
 	access = access_armory
@@ -190,7 +207,7 @@
 /datum/supply_pack/munitions/pcellammo
 	name = "Ammunition - Power cell"
 	contains = list(/obj/item/weapon/cell/device/weapon = 3)
-	cost = 50
+	cost = 75
 	containertype = /obj/structure/closet/crate/secure
 	containername = "Energy ammunition crate"
 	access = access_security

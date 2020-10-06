@@ -10,8 +10,8 @@
 
 /datum/supply_pack/decoration/painters
 	name = "Painting Supplies"
-	cost = 10
-	containername = "station painting supplies crate"
+	cost = 30
+	containername = "city painting supplies crate"
 	containertype = /obj/structure/closet/crate
 	contains = list(
 			/obj/item/device/pipe_painter = 2,
@@ -19,14 +19,14 @@
 			/obj/item/device/closet_painter = 2
 			)
 
-
+	spend_type = SPEND_MAINTENANCE
 
 /datum/supply_pack/decoration/spraycans
 	name = "Spraycan Set"
 	contains = list(
 			/obj/item/weapon/pen/crayon/spraycan = 5
 			)
-	cost = 30
+	cost = 25
 	containername = "Spraycan Set"
 
 /datum/supply_pack/decoration/holoplant
@@ -42,7 +42,7 @@
 	/obj/structure/flora/pottedplant/small = 2,
 	/obj/structure/flora/pottedplant/orientaltree = 2,
 	/obj/structure/flora/pottedplant/sticky = 2)
-	cost = 25
+	cost = 50
 	containertype = /obj/structure/closet/crate/large
 	containername = "Assorted Flowering Plants"
 
@@ -52,7 +52,7 @@
 	/obj/structure/flora/pottedplant/largebush = 2,
 	/obj/structure/flora/pottedplant/minitree = 2,
 	/obj/structure/flora/pottedplant/stoutbush = 2)
-	cost = 25
+	cost = 50
 	containertype = /obj/structure/closet/crate/large
 	containername = "Assorted Leafy Plants"
 

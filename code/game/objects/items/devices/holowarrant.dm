@@ -9,6 +9,8 @@
 	throw_range = 10
 	flags = CONDUCT
 
+	price_tag = 300
+
 var/list/storedwarrant = list() //All the warrants currently stored
 var/activename = null
 var/activecharges = null
@@ -54,9 +56,6 @@ var/activetype = null //Is this a search or arrest warrtant?
 			storedwarrant += W.fields["namewarrant"]
 		to_chat(user, "<span class='notice'>The device hums faintly as it syncs with the city's warrant database.</span>")
 		return 1
-		if(storedwarrant.len == 0)
-			user.visible_message("<span class='notice'>There are no warrants available</span>")
-			return 0
 
 /obj/item/device/holowarrant/proc/show_content(mob/user, forceshow)
 	if(activetype == "arrest")

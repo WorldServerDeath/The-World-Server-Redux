@@ -181,7 +181,8 @@ var/list/admin_verbs_server = list(
 	/client/proc/nanomapgen_DumpImage,
 	/client/proc/modify_server_news,
 	/client/proc/recipe_dump,
-	/client/proc/panicbunker
+	/client/proc/panicbunker,
+	/client/proc/ip_reputation
 	)
 
 var/list/admin_verbs_debug = list(
@@ -905,7 +906,7 @@ var/list/admin_verbs_event_manager = list(
 
 /client/proc/change_security_level()
 	set name = "Set security level"
-	set desc = "Sets the station security level"
+	set desc = "Sets the city security level"
 	set category = "Admin"
 
 	if(!check_rights(R_ADMIN))	return
@@ -1005,7 +1006,7 @@ var/list/admin_verbs_event_manager = list(
 	set category = "Admin"
 	if(holder)
 		var/list/jobs = list()
-		for (var/datum/job/J in job_master.occupations)
+		for (var/datum/job/J in SSjobs.occupations)
 			if (J.current_positions >= J.total_positions && J.total_positions != -1)
 				jobs += J.title
 		if (!jobs.len)
@@ -1013,7 +1014,7 @@ var/list/admin_verbs_event_manager = list(
 			return
 		var/job = input("Please select job slot to free", "Free job slot")  as null|anything in jobs
 		if (job)
-			job_master.FreeRole(job)
+			SSjobs.FreeRole(job)
 			message_admins("A job slot for [job] has been opened by [key_name_admin(usr)]")
 			return
 

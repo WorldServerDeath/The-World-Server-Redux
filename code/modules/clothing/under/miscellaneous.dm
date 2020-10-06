@@ -311,7 +311,7 @@
 	icon_state = "black_tango"
 
 /obj/item/clothing/under/dress/blacktango/alt
-	name = "black tango dress"
+	name = "alternative black tango dress"
 	desc = "Filled with Latin fire."
 	icon_state = "black_tango_alt"
 	item_state_slots = list(slot_r_hand_str = "black_tango", slot_l_hand_str = "black_tango")
@@ -327,7 +327,7 @@
 	icon_state = "sailor_dress"
 
 /obj/item/clothing/under/dress/redeveninggown
-	name = "red evening gown"
+	name = "evening gown"
 	desc = "Fancy dress for space bar singers."
 	icon_state = "red_evening_gown"
 	flags_inv = HIDESHOES
@@ -442,6 +442,11 @@
 	icon_state = "lilacdress"
 	index = 1
 
+/obj/item/clothing/under/dress/lacygown
+	name = "lacy gown"
+	desc = "A beautiful lace gown that can be found in many different colors."
+	icon_state = "lacygown"
+
 /obj/item/clothing/under/dress/white
 	name = "white wedding dress"
 	desc = "A fancy white dress with a blue underdress."
@@ -522,6 +527,7 @@
  * wedding stuff
  */
 /obj/item/clothing/under/wedding
+	name = "wedding dress"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS
 
 /obj/item/clothing/under/wedding/bride_orange

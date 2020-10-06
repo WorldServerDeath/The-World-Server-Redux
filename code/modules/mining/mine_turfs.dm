@@ -36,10 +36,6 @@ var/list/mining_overlay_cache = list()
 	var/datum/artifact_find/artifact_find
 	var/ignore_mapgen = 1
 
-	var/ore_chance = 10
-	var/ore_rarity
-
-
 	var/ore_types = list(
 		"hematite" = /obj/item/weapon/ore/iron,
 		"uranium" = /obj/item/weapon/ore/uranium,
@@ -50,10 +46,19 @@ var/list/mining_overlay_cache = list()
 		"osmium" = /obj/item/weapon/ore/osmium,
 		"hydrogen" = /obj/item/weapon/ore/hydrogen,
 		"silicates" = /obj/item/weapon/ore/glass,
-		"carbon" = /obj/item/weapon/ore/coal
+		"carbon" = /obj/item/weapon/ore/coal,
+		"copper" = /obj/item/weapon/ore/copper,
+		"tin" = /obj/item/weapon/ore/tin,
+		"bauxite" = /obj/item/weapon/ore/bauxite,
+		"void opals" = /obj/item/weapon/ore/void_opal,
+		"painite" = /obj/item/weapon/ore/painite,
+		"rutile" = /obj/item/weapon/ore/rutile,
+		"quartz" = /obj/item/weapon/ore/quartz,
 	)
 
 	has_resources = 1
+
+	var/mineral_chance = 10
 
 /turf/simulated/mineral/ignore_mapgen
 	ignore_mapgen = 1
@@ -107,11 +112,9 @@ var/list/mining_overlay_cache = list()
 	. = ..()
 	if(prob(20))
 		overlay_detail = "asteroid[rand(0,9)]"
+	if(density && has_resources && prob(mineral_chance))
+		make_ore()
 	update_icon(1)
-	if(density)
-		if(prob(ore_chance))
-			var/ore_rarity_chance = rand(1,2)
-			make_ore(ore_rarity_chance)
 	if(density && mineral)
 		. = INITIALIZE_HINT_LATELOAD
 
@@ -119,6 +122,7 @@ var/list/mining_overlay_cache = list()
 
 	if(density && mineral)
 		MineralSpread()
+
 
 /turf/simulated/mineral/update_icon(var/update_neighbors)
 
@@ -254,8 +258,9 @@ var/list/mining_overlay_cache = list()
 	name = "impassable rock"
 	icon = 'icons/turf/walls.dmi'
 	icon_state = "rock-dark"
-	ore_chance = 0
+	ignore_mapgen = 1
 	density = 1
+	has_resources = FALSE
 
 /turf/simulated/mineral/impassable/attackby(obj/item/weapon/W as obj, mob/user as mob)
 	to_chat(user, "<span class='warning'>The rock here seems a bit too hard to break...</span>")
@@ -590,10 +595,10 @@ var/list/mining_overlay_cache = list()
 
 	var/mineral_name
 	if(rare_ore)
-		mineral_name = pickweight(list("uranium" = 10, "platinum" = 10, "hematite" = 20, "carbon" = 20, "diamond" = 2, "gold" = 10, "silver" = 10, "phoron" = 20))
+		mineral_name = pickweight(list("uranium" = 15, "platinum" = 15, "hematite" = 15, "carbon" = 15, "diamond" = 5, "gold" = 25, "silver" = 25, "phoron" = 20, "void opal" = 2, "painite" = 7, "quartz" = 15, "bauxite" = 18, "rutile" = 13, "copper" = 18, "tin" = 18))
 
 	else
-		mineral_name = pickweight(list("uranium" = 5, "platinum" = 5, "hematite" = 35, "carbon" = 35, "diamond" = 1, "gold" = 5, "silver" = 5, "phoron" = 10))
+		mineral_name = pickweight(list("uranium" = 5, "platinum" = 5, "hematite" = 35, "carbon" = 35, "diamond" = 3, "gold" = 5, "silver" = 5, "phoron" = 10, "void opal" = 2, "painite" = 5, "quartz" = 8, "bauxite" = 30, "rutile" = 30, "copper" = 30, "tin" = 30))
 
 	if(mineral_name && (mineral_name in ore_data))
 		mineral = ore_data[mineral_name]

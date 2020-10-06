@@ -13,6 +13,7 @@
 /obj/item/stack/tile
 	name = "tile"
 	singular_name = "tile"
+	icon = 'icons/obj/tiles.dmi'
 	desc = "A non-descript floor tile"
 	w_class = ITEMSIZE_NORMAL
 	max_amount = 60
@@ -113,7 +114,7 @@
 	name = "alien wood tile"
 	singular_name = "alien wood tile"
 	desc = "An easy to fit wooden floor tile. It's blue!"
-	icon_state = "tile-sifwood"
+	color = "#0099cc"
 
 /obj/item/stack/tile/wood/cyborg
 	name = "wood floor tile synthesizer"
@@ -139,6 +140,11 @@
 	no_variants = FALSE
 
 	stack_color = COLOR_RED
+
+/obj/item/stack/tile/carpet/browcarpet
+	name = "brown carpet"
+	icon_state = "tile-carpet"
+	stack_color = COLOR_BROWN
 
 /obj/item/stack/tile/carpet/teal
 	name = "teal carpet"
@@ -238,6 +244,27 @@
 	name = "yellow floor tile"
 	singular_name = "yellow floor tile"
 	color = COLOR_BROWN
+	icon_state = "tile_white"
+	no_variants = FALSE
+
+/obj/item/stack/tile/floor/lime
+	name = "lime floor tile"
+	singular_name = "lime floor tile"
+	color = COLOR_PALE_GREEN_GRAY
+	icon_state = "tile_white"
+	no_variants = FALSE
+
+/obj/item/stack/tile/floor/paleblue
+	name = "pale blue floor tile"
+	singular_name = "pale blue floor tile"
+	color = COLOR_PALE_BLUE_GRAY
+	icon_state = "tile_white"
+	no_variants = FALSE
+
+/obj/item/stack/tile/floor/blue
+	name = "blue floor tile"
+	singular_name = "blue floor tile"
+	color = COLOR_BLUE_GRAY
 	icon_state = "tile_white"
 	no_variants = FALSE
 
