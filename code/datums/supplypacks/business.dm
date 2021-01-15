@@ -10,35 +10,35 @@
 /datum/supply_pack/business/eftpos
 	contains = list(/obj/item/device/eftpos)
 	name = "EFTPOS scanner"
-	cost = 50
+	cost = 100
 	containertype = /obj/structure/closet/crate
 	containername = "EFTPOS crate"
 
 /datum/supply_pack/business/cash_register
 	contains = list(/obj/machinery/cash_register)
 	name = "Cash Register"
-	cost = 250
+	cost = 500
 	containertype = /obj/structure/closet/crate
 	containername = "Cash Register crate"
 
 /datum/supply_pack/business/retail_scanner
 	contains = list(/obj/item/device/retail_scanner)
 	name = "Retail Scanner"
-	cost = 160
+	cost = 250
 	containertype = /obj/structure/closet/crate
 	containername = "Retail Scanner crate"
 
 /datum/supply_pack/business/price_tagger
 	contains = list(/obj/item/device/price_tagger)
 	name = "Price Tagger"
-	cost = 70
+	cost = 100
 	containertype = /obj/structure/closet/crate
 	containername = "Price Tagger crate"
 
 /datum/supply_pack/business/price_scanner
 	contains = list(/obj/item/device/price_scanner)
 	name = "Price Scanner"
-	cost = 40
+	cost = 100
 	containertype = /obj/structure/closet/crate
 	containername = "Price Scanner"
 
@@ -52,7 +52,7 @@
 /datum/supply_pack/business/business_money_display
 	contains = list(/obj/machinery/status_display/money_display)
 	name = "Business Money Display"
-	cost = 900
+	cost = 2000
 	containertype = /obj/structure/largecrate
 	containername = "Business Money Display"
 
@@ -71,7 +71,7 @@
 	/obj/item/stack/marker_beacon/thirty
 	)
 	name = "Mining Starter Kit"
-	cost = 200
+	cost = 1865
 	containertype = /obj/structure/closet/crate
 	containername = "Mining Starter Kit"
 
@@ -88,15 +88,15 @@
 	contains = list(/obj/item/weapon/circuitboard/trade_machine)
 	name = "Auto-Commerce Machine"
 	cost = 2000
-	containertype = /obj/structure/closet/crate
+	containertype = /obj/structure/largecrate
 	containername = "Auto-Commerce Machine"
 
 
 /datum/supply_pack/business/security_system
 	contains = list(/obj/machinery/lot_security_system/factory_ordered)
 	name = "Z.E.U.S. Security System" // 'Security System' is redundant since the S in the name stands for security, but it needs to be obvious in the menu.
-	cost = 9000
-	containertype = /obj/structure/closet/crate
+	cost = 10000
+	containertype = /obj/structure/largecrate
 	containername = "Z.E.U.S. System"
 
 /datum/supply_pack/business/security_system_charge
@@ -115,3 +115,45 @@
 	contains = list(/obj/item/weapon/lot_security_charge/ten)
 	name = "Z.E.U.S. Charge (10x)"
 	cost = 1000
+
+/datum/supply_pack/business/stackholder_metals
+	contains = list(/obj/structure/stack_holder/metals)
+	name = "Solid Metals Holder"
+	cost = 1000
+	containertype = /obj/structure/largecrate
+	containername = "Solid Metals Holder"
+
+/datum/supply_pack/business/stackholder_gems
+	contains = list(/obj/structure/stack_holder/gem)
+	name = "Gemstones Cabinet"
+	cost = 1000
+	containertype = /obj/structure/largecrate
+	containername = "Precious Gems and Stones Cabinet"
+
+/datum/supply_pack/business/stackholder_refined
+	contains = list(/obj/structure/stack_holder/refined)
+	name = "Refined Materials Holder"
+	cost = 1000
+	containertype = /obj/structure/largecrate
+	containername = "Refined Materials Holder"
+
+/datum/supply_pack/business/stackholder_fabric
+	contains = list(/obj/structure/stack_holder/fabric)
+	name = "Fabrics Storage Unit"
+	cost = 1000
+	containertype = /obj/structure/largecrate
+	containername = "Fabrics Storage Unit"
+
+/datum/supply_pack/business/stackholder_tiles
+	contains = list(/obj/structure/stack_holder/tiles)
+	name = "Tiles Storage"
+	cost = 1000
+	containertype = /obj/structure/largecrate
+	containername = "Tiles Storage"
+
+/datum/supply_pack/business/stackholder_cabinet
+	contains = list(/obj/structure/stack_holder/medical)
+	name = "Medical Cabinet"
+	cost = 1000
+	containertype = /obj/structure/largecrate
+	containername = "Medical Cabinet"

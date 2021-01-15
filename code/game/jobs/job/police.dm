@@ -23,10 +23,12 @@
 	minimum_character_age = 30
 	minimal_player_age = 14
 
+
 	outfit_type = /decl/hierarchy/outfit/job/security/hos
 	alt_titles = list("Head of Police", "Police Commander", "Police Commissioner", "Police Chief")
 
 	clean_record_required = TRUE
+	allows_synths = FALSE
 
 	description = "Your job is to ensure the police unit runs correctly, you should make sure that police officers are enforcing the law correctly and \
 	not breaking SOP. You authorize warrants and make sure that the police departments runs like a well-oiled cog."
@@ -48,7 +50,7 @@
 	supervisors = "the chief of police"
 	selection_color = "#601C1C"
 	idtype = /obj/item/weapon/card/id/security/warden
-	wage = 160
+	wage = 175
 	access = list(access_security, access_bodyguard, access_warrant, access_eva, access_sec_doors, access_brig, access_armory, access_maint_tunnels, access_morgue, access_external_airlocks)
 	minimal_access = list(access_security, access_warrant, access_eva, access_sec_doors, access_brig, access_armory, access_maint_tunnels, access_external_airlocks)
 	minimal_player_age = 5
@@ -58,6 +60,7 @@
 	alt_titles = list("Correctional Officer", "Brig Attendant", "Police Sergeant")
 
 	clean_record_required = TRUE
+	allows_synths = FALSE
 
 
 	description = "Your job? Look after the criminals of this society. Keep an eye on them and try not to leave the prison area unless you really, really need \
@@ -81,9 +84,11 @@
 	supervisors = "the chief of police"
 	selection_color = "#601C1C"
 	idtype = /obj/item/weapon/card/id/security/detective
-	access = list(access_security, access_sec_doors, access_forensics_lockers, access_medical, access_morgue, access_maint_tunnels, access_eva, access_external_airlocks, access_medical)
-	minimal_access = list(access_security, access_sec_doors, access_forensics_lockers, access_morgue, access_maint_tunnels, access_eva, access_external_airlocks)
-	wage = 140
+	access = list(access_security, access_sec_doors, access_brig, access_forensics_lockers, access_medical, access_morgue, access_maint_tunnels, access_eva, access_external_airlocks)
+	minimal_access = list(access_security, access_sec_doors, access_brig, access_forensics_lockers, access_medical, access_morgue, access_maint_tunnels, access_eva, access_external_airlocks)
+	wage = 150
+	synth_wage = 80
+
 	minimal_player_age = 3
 	minimum_character_age = 25
 
@@ -115,14 +120,16 @@
 	supervisors = "the chief of police"
 	selection_color = "#601C1C"
 	idtype = /obj/item/weapon/card/id/security/officer
-	wage = 100
+	wage = 125
+	synth_wage = 60
+
 	access = list(access_security, access_eva, access_sec_doors, access_brig, access_maint_tunnels, access_morgue, access_external_airlocks)
 	minimal_access = list(access_security, access_eva, access_sec_doors, access_brig, access_maint_tunnels, access_external_airlocks)
 	minimal_player_age = 3
 	minimum_character_age = 23
 
 	outfit_type = /decl/hierarchy/outfit/job/security/officer
-	alt_titles = list("Police Cadet" = /decl/hierarchy/outfit/job/security/cadet,"Traffic Warden" = /decl/hierarchy/outfit/job/security/traffic)
+	alt_titles = list("Police Cadet" = /decl/hierarchy/outfit/job/security/cadet,"Traffic Officer" = /decl/hierarchy/outfit/job/security/traffic)
 
 	clean_record_required = TRUE
 

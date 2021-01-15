@@ -69,7 +69,7 @@
 	var/max_equip = 3
 	var/datum/events/events
 
-	unique_save_vars = list("health")
+	unique_save_vars = list("health", "icon_state")
 
 /obj/mecha/drain_power(var/drain_check)
 
@@ -402,6 +402,12 @@
 	if(result)
 		playsound(src,"mechstep",40,1)
 	return result
+
+/obj/mecha/proc/do_after(delay as num)
+    sleep(delay)
+    if(src)
+        return 1
+    return 0
 
 /obj/mecha/Bump(var/atom/obstacle)
 //	src.inertia_dir = null
@@ -1628,7 +1634,7 @@
 		var/mob/occupant = P.occupant
 
 		user.visible_message("<span class='notice'>\The [user] begins opening the hatch on \the [P]...</span>", "<span class='notice'>You begin opening the hatch on \the [P]...</span>")
-		if (!do_after(user, 40, needhand=0))
+		if (!do_after(user, 40, 0))
 			return
 
 		user.visible_message("<span class='notice'>\The [user] opens the hatch on \the [P] and removes [occupant]!</span>", "<span class='notice'>You open the hatch on \the [P] and remove [occupant]!</span>")

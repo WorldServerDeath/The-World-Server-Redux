@@ -99,9 +99,9 @@
 	material = "bauxite"
 
 /obj/item/weapon/ore/rutile
-	name = "rutile"
+	name = "raw rutile"
 	icon_state = "ore_rutile"
-	material = "titanium"
+	material = "rutile"
 
 /obj/item/weapon/ore/void_opal
 	name = "raw void opal"
@@ -117,6 +117,12 @@
 	name = "raw quartz"
 	icon_state = "ore_quartz"
 	material = "quartz"
+
+/obj/item/weapon/ore/quartz/rose_quartz
+	name = "raw rose quartz"
+	icon_state = "ore_quartz"
+	material = "rose quartz"
+
 
 /obj/item/weapon/ore/New()
 	pixel_x = rand(0,16)-8

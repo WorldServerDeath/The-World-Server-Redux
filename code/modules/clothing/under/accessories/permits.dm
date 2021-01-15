@@ -1,5 +1,15 @@
 //This'll be used for gun permits, such as for heads of staff, antags, and bartenders
 
+// this  can be expanded
+GLOBAL_LIST_INIT(permit_types, list(
+	"Weapons Permit - Tier 0" = /obj/item/clothing/accessory/permit/gun,
+	"Weapons Permit - Tier 1" = /obj/item/clothing/accessory/permit/gun/tier_one,
+	"Weapons Permit - Tier 2" = /obj/item/clothing/accessory/permit/gun/tier_two,
+	"Weapons Permit - Tier 3" = /obj/item/clothing/accessory/permit/gun/tier_three,
+	"Weapons Permit - Tier 4" = /obj/item/clothing/accessory/permit/gun/tier_four,
+	"Weapons Permit - Tier 5" = /obj/item/clothing/accessory/permit/gun/tier_five,
+))
+
 /obj/item/clothing/accessory/permit
 	name = "permit"
 	desc = "A permit for something."
@@ -94,6 +104,12 @@
 	desc = "A card indicating that the owner is allowed to carry a firearm while on the surface."
 	tiered = FALSE
 
+/obj/item/clothing/accessory/permit/gun/proc/get_tier()
+	if(!tier)
+		return 0
+	else
+		return tier
+
 /obj/item/clothing/accessory/permit/drone
 	name = "drone identification card"
 	desc = "A card issued by the government, indicating that the owner is a Drone Intelligence. Drones are mandated to carry this card on PolGov colonies, by law."
@@ -104,7 +120,21 @@
 /obj/item/clothing/accessory/permit/synth
 	name = "synth identification card"
 	desc = "A card issued by the government, indicating that the owner is a Synthetic. Synths are mandated to carry this card on PolGov colonies, by law."
-	icon_state = "permit_drone"
+	icon_state = "permit_synth"
+	tiered = FALSE
+	dont_save = TRUE
+
+/obj/item/clothing/accessory/permit/fbp
+	name = "full body identification card"
+	desc = "A card issued by the government. It signifies that the owner is human but has a full body prosthetic as a disability. It is used to differiate the owner from synths, it is optional to wear by law."
+	icon_state = "permit_fbp"
+	tiered = FALSE
+	dont_save = TRUE
+
+/obj/item/clothing/accessory/permit/vatborn
+	name = "mass produced vatborn identification card"
+	desc = "A card issued by the government, indicating that the owner is a Mass Produced Vatborn. Mass Produced are mandated to carry this card on PolGov colonies, by law."
+	icon_state = "permit_5"
 	tiered = FALSE
 	dont_save = TRUE
 

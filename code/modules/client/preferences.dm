@@ -166,6 +166,9 @@ datum/preferences
 	// Communicator identity data
 	var/communicator_visibility = 1
 
+	//Silent joining for shenanigans
+	var/silent_join = 0
+
 	var/datum/category_collection/player_setup_collection/player_setup
 	var/datum/browser/panel
 
@@ -179,6 +182,8 @@ datum/preferences
 	var/loadprefcooldown
 	var/savecharcooldown
 	var/loadcharcooldown
+
+	var/cyber_control = FALSE //Allows players to use cyberware on spawn
 
 /datum/preferences/New(client/C)
 	player_setup = new(src)
@@ -392,3 +397,22 @@ datum/preferences
 /datum/preferences/proc/make_editable()
 	existing_character = 0
 	return 1
+
+
+/datum/preferences/proc/is_synth() // lets us know if this is a non-FBP synth
+	if(O_BRAIN in organ_data)
+		switch(organ_data[O_BRAIN])
+			if("mechanical")
+				return PREF_FBP_POSI
+			if("digital")
+				return PREF_FBP_SOFTWARE
+
+	return FALSE
+
+/datum/preferences/proc/is_fbp() // lets us know if this is a non-FBP synth
+	if(O_BRAIN in organ_data)
+		switch(organ_data[O_BRAIN])
+			if("assisted")
+				return PREF_FBP_CYBORG
+
+	return FALSE

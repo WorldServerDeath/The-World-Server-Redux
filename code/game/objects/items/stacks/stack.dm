@@ -32,6 +32,9 @@
 	unique_save_vars = list("amount", "stack_color")
 
 /obj/item/stack/on_persistence_load()
+	if(0 > amount)
+		amount = 1
+
 	update_icon()
 
 /obj/item/stack/New(var/loc, var/amount=null)
@@ -42,6 +45,9 @@
 		src.amount = amount
 	if(stack_color)
 		color = stack_color
+
+	if(!stacktype)
+		stacktype = type
 	update_icon()
 	return
 
@@ -286,6 +292,9 @@
 		return 0
 	if (isnull(tamount))
 		tamount = src.get_amount()
+	if(0 > amount)	// to avoid sheet exploits
+		qdel(src)
+		return 0
 	var/transfer = max(min(tamount, src.get_amount(), (S.get_max_amount() - S.get_amount())), 0)
 
 	var/orig_amount = src.get_amount()
@@ -361,15 +370,18 @@
 /obj/item/stack/attack_hand(mob/user as mob)
 	if (user.get_inactive_hand() == src)
 		var/N = input("How many stacks of [src] would you like to split off?  There are currently [amount].", "Split stacks", 1) as num|null
-		if(N)
-			var/obj/item/stack/F = src.split(N)
-			if (F)
-				user.put_in_hands(F)
-				src.add_fingerprint(user)
-				F.add_fingerprint(user)
-				spawn(0)
-					if (src && usr.machine==src)
-						src.interact(usr)
+
+		if(!N || (0 > N) || (N > amount))
+			return
+
+		var/obj/item/stack/F = src.split(N)
+		if (F)
+			user.put_in_hands(F)
+			src.add_fingerprint(user)
+			F.add_fingerprint(user)
+			spawn(0)
+				if (src && usr.machine==src)
+					src.interact(usr)
 	else
 		..()
 	return

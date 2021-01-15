@@ -428,13 +428,11 @@
 	item_state_slots = list(slot_r_hand_str = "darkreddress", slot_l_hand_str = "darkreddress")
 	index = 1
 
-
 /obj/item/clothing/under/dress/sari/green
 	name = "green sari"
 	icon_state = "sari_green"
 	item_state_slots = list(slot_r_hand_str = "dress_green", slot_l_hand_str = "dress_green")
 	index = 1
-
 
 /obj/item/clothing/under/dress/lilacdress
 	name = "lilac dress"
@@ -523,6 +521,44 @@
 	desc = "A red and white dress themed after some winter holidays. Tastefully festive!"
 	icon_state = "festivedress"
 
+/obj/item/clothing/under/dress/formalred
+	name = "formal red dress"
+	desc = "A very formal red dress, for those fancy galas."
+	icon_state = "formalred"
+	flags_inv = HIDESHOES
+	index = 1
+
+/obj/item/clothing/under/dress/revealingdress
+	name = "revealing dress"
+	desc = "A very revealing black and blue dress. Is this work appropriate?"
+	icon_state = "revealingdress"
+	index = 1
+
+/obj/item/clothing/under/dress/gothic
+	name = "gothic dress"
+	desc = "A black dress with a sheer mesh over it, tastefully old school goth."
+	icon_state = "gothic"
+	index = 1
+
+/obj/item/clothing/under/dress/formalred
+	name = "formal red dress"
+	desc = "A very formal red dress, for those fancy galas."
+	icon_state = "formalred"
+	flags_inv = HIDESHOES
+	index = 1
+
+/obj/item/clothing/under/dress/pentagram
+	name = "pentagram dress"
+	desc = "A black dress with straps over the chest in the shape of a pentagram."
+	icon_state = "pentagram"
+	index = 1
+
+/obj/item/clothing/under/dress/yellowswoop
+	name = "yellow swooped dress"
+	desc = "A yellow dress that swoops to the side."
+	icon_state = "yellowswoop"
+	index = 1
+
 /*
  * wedding stuff
  */
@@ -560,6 +596,37 @@
 	icon_state = "bride_white"
 	flags_inv = HIDESHOES
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO
+
+/obj/item/clothing/under/wedding/floofdress
+	name = "floofy dress"
+	desc = "A lovely floofed out dress for formal occasions. Comes in many colors!"
+	icon_state = "floofdress"
+	flags_inv = HIDESHOES
+	index = 1
+
+/obj/item/clothing/under/wedding/whitegown
+	name = "white gown"
+	desc = "A elegant white gown with accents of sheer mesh."
+	icon_state = "whitegown"
+	index = 1
+
+/obj/item/clothing/under/wedding/regal_wedding
+	name = "red regal wedding dress"
+	desc = "A elegant royal gown, fit for nobility."
+	icon_state = "regal_wedding"
+	flags_inv = HIDESHOES
+	index = 1
+
+/obj/item/clothing/under/wedding/regal_maidofhonor
+	name = "regal maid of honor dress"
+	desc = "A elegant regal peplum dress with a frilly red skirt."
+	icon_state = "regal_maidenhonor"
+	index = 1
+	body_parts_covered = UPPER_TORSO|LOWER_TORSO
+
+/*
+Uniforms and stuff
+*/
 
 /obj/item/clothing/under/sundress
 	name = "sundress"
@@ -1061,6 +1128,24 @@
 	icon_state = "arisbestman"
 	index = 1
 
+/obj/item/clothing/under/arisgroom
+	name = "aristocratic tuxedo"
+	desc = "You can almost smell the bank notes this was sewn from."
+	icon_state = "arisgroom"
+	index = 1
+
+/obj/item/clothing/under/regal_groom
+	name = "regal groom tuxedo"
+	desc = "A red elegent groom outfit."
+	icon_state = "regal_groom"
+	index = 1
+
+/obj/item/clothing/under/regal_bestman
+	name = "regal best man tuxedo"
+	desc = "A red elegent best man outfit."
+	icon_state = "regal_bestman"
+	index = 1
+
 /obj/item/clothing/under/hartsuit
 	name = "striped suit"
 	desc = "A red and white striped ensemble with dark suspenders."
@@ -1098,3 +1183,40 @@
 	name = "wetsuit"
 	desc = "A skin-tight neoprene wetsuit designed to provide thermal insulation and increase buoyancy."
 	icon_state = "wetsuit"
+
+/obj/item/clothing/under/rippedpunk
+	name = "ripped punk jeans"
+	desc = "Black ripped jeans and a fishnet top. How punk."
+	icon_state = "rippedpunk"
+	index = 1
+
+/obj/item/clothing/under/greenasym
+	name = "green asymmetrical jumpsuit"
+	desc = "A green futuristic uniform with asymmetrical pants. Trendy!"
+	icon_state = "greenasym"
+	index = 1
+
+/obj/item/clothing/under/cyberpunkharness
+	name = "strapped harness"
+	desc = "A cyberpunk styled harness and pants. Perfect for your dystopian future."
+	icon_state = "cyberhell"
+	index = 1
+
+/obj/item/clothing/under/blackngold
+	name = "black and gold gown"
+	desc = "A black and gold gown. You get the impression this is typically worn for religious purposes."
+	icon_state = "blackngold"
+	index = 1
+
+/obj/item/clothing/under/sheerblue
+	name = "sheer blue dress"
+	desc = "An entirely sheer blue dress. Best worn with something underneath!"
+	icon_state = "sheerblue"
+	index = 1
+
+/obj/item/clothing/under/disheveled
+	name = "disheveled suit"
+	desc = "What might pass as well maintained formal attire. If you're blind."
+	icon_state = "disheveled"
+	index = 1
+

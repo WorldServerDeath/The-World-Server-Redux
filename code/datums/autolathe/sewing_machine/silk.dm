@@ -95,6 +95,14 @@
 	name = "orange wedding dress"
 	path = /obj/item/clothing/under/wedding/bride_orange
 
+/datum/category_item/crafting/sewing_machine/silk/floofy
+	name = "floofy dress"
+	path = /obj/item/clothing/under/wedding/floofdress
+
+/datum/category_item/crafting/sewing_machine/silk/gown
+	name = "gown"
+	path = /obj/item/clothing/under/wedding/whitegown
+
 // preset dresses
 /datum/category_item/crafting/sewing_machine/silk/wench
 	name = "wench dress"
@@ -113,14 +121,26 @@
 	name = "aristocratic bridesmaid dress"
 	path = /obj/item/clothing/under/dress/arisbridesmaid
 	force_matter = list("silk" = 5350)
+
 /datum/category_item/crafting/sewing_machine/silk/arisflowergirl
 	name = "aristocratic flowergirl dress"
 	path = /obj/item/clothing/under/dress/arisflowergirl/colorable
 	force_matter = list("silk" = 3350)
+
 /datum/category_item/crafting/sewing_machine/silk/ariswedding
 	name = "aristocratic wedding dress"
 	path = /obj/item/clothing/under/dress/ariswedding
 	force_matter = list("silk" = 6350)
+
+/datum/category_item/crafting/sewing_machine/silk/regalwedding
+	name = "regal wedding dress"
+	path = /obj/item/clothing/under/wedding/regal_wedding
+	force_matter = list("silk" = 6350)
+
+/datum/category_item/crafting/sewing_machine/silk/regal_maidofhonor
+	name = "regal maid of honor"
+	path = /obj/item/clothing/under/wedding/regal_maidofhonor
+	force_matter = list("silk" = 5350)
 
 /datum/category_item/crafting/sewing_machine/silk/pinktutu
 	name = "pink tutu"
@@ -155,7 +175,33 @@
 	name = "green sari"
 	path = /obj/item/clothing/under/dress/sari/green
 
+/datum/category_item/crafting/sewing_machine/silk/gothic
+	name = "gothic dress"
+	path = /obj/item/clothing/under/dress/gothic
 
+/datum/category_item/crafting/sewing_machine/silk/pentagram
+	name = "pentagram dress"
+	path = /obj/item/clothing/under/dress/pentagram
+
+/datum/category_item/crafting/sewing_machine/silk/revealing
+	name = "revealing dress"
+	path = /obj/item/clothing/under/dress/revealingdress
+
+/datum/category_item/crafting/sewing_machine/silk/formalred
+	name = "formal red dress"
+	path = /obj/item/clothing/under/dress/formalred
+
+/datum/category_item/crafting/sewing_machine/silk/yellowswoop
+	name = "yellow swoop dress"
+	path = /obj/item/clothing/under/dress/yellowswoop
+
+/datum/category_item/crafting/sewing_machine/silk/sheerblue
+	name = "sheer blue dress"
+	path = /obj/item/clothing/under/sheerblue
+
+/datum/category_item/crafting/sewing_machine/silk/blackngold
+	name = "black and gold gown"
+	path = /obj/item/clothing/under/blackngold
 
 // suits
 
@@ -181,6 +227,27 @@
 
 // preset suits
 
+
+/datum/category_item/crafting/sewing_machine/silk/arisgroom
+	name = "aristocratic groom"
+	path = /obj/item/clothing/under/arisgroom
+	force_matter = list("silk" = 3550)
+
+/datum/category_item/crafting/sewing_machine/silk/arisbestman
+	name = "aristocratic purple tuxedo"
+	path = /obj/item/clothing/under/arisbestman
+	force_matter = list("silk" = 3550)
+
+/datum/category_item/crafting/sewing_machine/silk/regalgroom
+	name = "regal groom tuxedo"
+	path = /obj/item/clothing/under/regal_groom
+	force_matter = list("silk" = 6350)
+
+/datum/category_item/crafting/sewing_machine/silk/regalbestman
+	name = "regal bestman tuxedo"
+	path = /obj/item/clothing/under/regal_bestman
+	force_matter = list("silk" = 6350)
+
 /datum/category_item/crafting/sewing_machine/silk/gentlesuit
 	name = "gentlemans suit"
 	path = /obj/item/clothing/under/gentlesuit
@@ -190,6 +257,10 @@
 	name = "ladies suit"
 	path = /obj/item/clothing/under/gentlesuit/skirt
 	force_matter = list("silk" = 3250)
+
+/datum/category_item/crafting/sewing_machine/silk/disheveled
+	name = "disheveled suit"
+	path = /obj/item/clothing/under/disheveled
 
 // shorts and skirts
 
@@ -302,10 +373,16 @@
 	name = "trilby hat"
 	path = /obj/item/clothing/head/feathertrilby
 	force_matter = list("silk" = 310)
+
 /datum/category_item/crafting/sewing_machine/silk/fex
 	name = "fez hat"
 	path = /obj/item/clothing/head/fez
 	force_matter = list("silk" = 310)
+
+/datum/category_item/crafting/sewing_machine/silk/blackngoldheaddress
+	name = "black and gold headdress"
+	path = /obj/item/clothing/head/blackngoldheaddress
+	force_matter = list("silk" = 410)
 
 // accessories
 

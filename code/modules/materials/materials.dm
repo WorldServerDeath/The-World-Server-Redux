@@ -67,7 +67,7 @@ var/list/name_to_material
 	var/display_name                      // Prettier name for display.
 	var/use_name
 	var/flags = 0                         // Various status modifiers.
-	var/sheet_singular_name = "sheets"
+	var/sheet_singular_name = "sheet"
 	var/sheet_plural_name = "sheets"
 	var/is_fusion_fuel
 
@@ -233,6 +233,9 @@ var/list/name_to_material
 /material/proc/get_wall_texture()
 	return
 
+/material/proc/get_worth()
+	return worth
+
 // Datum definitions follow.
 /material/uranium
 	name = "uranium"
@@ -244,6 +247,7 @@ var/list/name_to_material
 	weight = 22
 	stack_origin_tech = list(TECH_MATERIAL = 5)
 	door_icon_base = "stone"
+	worth = 9
 
 /material/diamond
 	name = "diamond"
@@ -258,8 +262,9 @@ var/list/name_to_material
 	tableslam_noise = 'sound/effects/Glasshit.ogg'
 	hardness = 100
 	stack_origin_tech = list(TECH_MATERIAL = 6)
-	sheet_singular_name = "gems"
+	sheet_singular_name = "gem"
 	sheet_plural_name = "gems"
+	worth = 12
 
 /material/gold
 	name = "gold"
@@ -270,15 +275,17 @@ var/list/name_to_material
 	hardness = 40
 	conductivity = 41
 	stack_origin_tech = list(TECH_MATERIAL = 4)
-	sheet_singular_name = "ingots"
+	sheet_singular_name = "ingot"
 	sheet_plural_name = "ingots"
+	worth = 6.5
 
 /material/gold/bronze //placeholder for ashtrays
 	name = "bronze"
 	stack_type = /obj/item/stack/material/bronze
-	sheet_singular_name = "ingots"
+	sheet_singular_name = "ingot"
 	sheet_plural_name = "ingots"
 	icon_colour = "#EDD12F"
+	worth = 2.4
 
 /material/silver
 	name = "silver"
@@ -288,8 +295,9 @@ var/list/name_to_material
 	hardness = 50
 	conductivity = 63
 	stack_origin_tech = list(TECH_MATERIAL = 3)
-	sheet_singular_name = "ingots"
+	sheet_singular_name = "ingot"
 	sheet_plural_name = "ingots"
+	worth = 4.2
 
 //R-UST port
 /material/supermatter
@@ -303,7 +311,7 @@ var/list/name_to_material
 	shard_type = SHARD_SHARD
 	hardness = 30
 	door_icon_base = "stone"
-	sheet_singular_name = "crystals"
+	sheet_singular_name = "crystal"
 	sheet_plural_name = "crystals"
 	is_fusion_fuel = 1
 
@@ -317,8 +325,9 @@ var/list/name_to_material
 	hardness = 30
 	stack_origin_tech = list(TECH_MATERIAL = 2, TECH_PHORON = 2)
 	door_icon_base = "stone"
-	sheet_singular_name = "crystals"
+	sheet_singular_name = "crystal"
 	sheet_plural_name = "crystals"
+	worth = 7
 
 /*
 // Commenting this out while fires are so spectacularly lethal, as I can't seem to get this balanced appropriately.
@@ -349,8 +358,9 @@ var/list/name_to_material
 	protectiveness = 5 // 20%
 	conductivity = 5
 	door_icon_base = "stone"
-	sheet_singular_name = "bricks"
+	sheet_singular_name = "brick"
 	sheet_plural_name = "bricks"
+	worth = 0.25
 
 /material/stone/marble
 	name = "marble"
@@ -369,6 +379,7 @@ var/list/name_to_material
 	icon_base = "solid"
 	icon_reinf = "reinf_over"
 	icon_colour = "#515151"
+	worth = 0.75
 
 /material/biomass
 	name = "biomass"
@@ -402,7 +413,7 @@ var/list/name_to_material
 	conductivity = 13 // For the purposes of balance.
 	stack_origin_tech = list(TECH_MATERIAL = 2)
 	composite_material = list(DEFAULT_WALL_MATERIAL = SHEET_MATERIAL_AMOUNT, "platinum" = SHEET_MATERIAL_AMOUNT) //todo
-
+	worth = 4
 
 // Very rare alloy that is reflective, should be used sparingly.
 /material/durasteel
@@ -420,16 +431,17 @@ var/list/name_to_material
 	reflectivity = 0.7 // Not a perfect mirror, but close.
 	stack_origin_tech = list(TECH_MATERIAL = 8)
 	composite_material = list("plasteel" = SHEET_MATERIAL_AMOUNT, "diamond" = SHEET_MATERIAL_AMOUNT) //shrug
+	worth = 7
 
 /material/plasteel/titanium
 	name = "titanium"
 	stack_type = /obj/item/stack/material/titanium
-	stack_type = null
 	conductivity = 2.38
 	icon_base = "metal"
 	door_icon_base = "metal"
 	icon_colour = "#D1E6E3"
 	icon_reinf = "reinf_metal"
+	worth = 3
 
 /material/plastic
 	name = "plastic"
@@ -444,6 +456,7 @@ var/list/name_to_material
 	conductivity = 2 // For the sake of material armor diversity, we're gonna pretend this plastic is a good insulator.
 	melting_point = T0C+371 //assuming heat resistant plastic
 	stack_origin_tech = list(TECH_MATERIAL = 3)
+	worth = 0.5
 
 /material/plastic/holographic
 	name = "holoplastic"
@@ -456,24 +469,26 @@ var/list/name_to_material
 	stack_type = /obj/item/stack/material/osmium
 	icon_colour = "#9999FF"
 	stack_origin_tech = list(TECH_MATERIAL = 5)
-	sheet_singular_name = "ingots"
+	sheet_singular_name = "ingot"
 	sheet_plural_name = "ingots"
+	worth = 3
 
 /material/tritium
 	name = "tritium"
 	stack_type = /obj/item/stack/material/tritium
 	icon_colour = COLOR_TRITIUM
 	stack_origin_tech = list(TECH_MATERIAL = 5)
-	sheet_singular_name = "ingots"
+	sheet_singular_name = "ingot"
 	sheet_plural_name = "ingots"
 	is_fusion_fuel = 1
+	worth = 4
 
 /material/deuterium
 	name = "deuterium"
 	stack_type = /obj/item/stack/material/deuterium
 	icon_colour = "#999999"
 	stack_origin_tech = list(TECH_MATERIAL = 3)
-	sheet_singular_name = "ingots"
+	sheet_singular_name = "ingot"
 	sheet_plural_name = "ingots"
 	is_fusion_fuel = 1
 
@@ -484,6 +499,7 @@ var/list/name_to_material
 	stack_origin_tech = list(TECH_MATERIAL = 6, TECH_POWER = 6, TECH_MAGNET = 5)
 	conductivity = 100
 	is_fusion_fuel = 1
+	worth = 4
 
 /material/platinum
 	name = "platinum"
@@ -492,8 +508,9 @@ var/list/name_to_material
 	weight = 27
 	conductivity = 9.43
 	stack_origin_tech = list(TECH_MATERIAL = 2)
-	sheet_singular_name = "ingots"
+	sheet_singular_name = "ingot"
 	sheet_plural_name = "ingots"
+	worth = 3
 
 /material/iron
 	name = "iron"
@@ -501,8 +518,9 @@ var/list/name_to_material
 	icon_colour = "#5C5454"
 	weight = 22
 	conductivity = 10
-	sheet_singular_name = "ingots"
+	sheet_singular_name = "ingot"
 	sheet_plural_name = "ingots"
+	worth = 0.5
 
 /material/lead
 	name = "lead"
@@ -510,7 +528,7 @@ var/list/name_to_material
 	icon_colour = COLOR_LEAD
 	weight = 23 // Lead is a bit more dense than silver IRL, and silver has 22 ingame.
 	conductivity = 10
-	sheet_singular_name = "ingots"
+	sheet_singular_name = "ingot"
 	sheet_plural_name = "ingots"
 	radiation_resistance = 25 // Lead is Special and so gets to block more radiation than it normally would with just weight, totalling in 48 protection.
 
@@ -584,6 +602,7 @@ var/list/name_to_material
 	sheet_singular_name = "pile"
 	sheet_plural_name = "pile" //Just a bigger pile
 	radiation_resistance = 1
+	worth = 0
 
 /material/snowbrick //only slightly stronger than snow, used to make igloos mostly
 	name = "packed snow"
@@ -599,7 +618,7 @@ var/list/name_to_material
 	stack_origin_tech = list(TECH_MATERIAL = 1)
 	melting_point = T0C+1
 	destruction_desc = "crumbles"
-	sheet_singular_name = "bricks"
+	sheet_singular_name = "brick"
 	sheet_plural_name = "bricks"
 	radiation_resistance = 1
 
@@ -612,7 +631,7 @@ var/list/name_to_material
 	icon_colour = "#402821"
 	icon_reinf = "reinf_cult"
 	shard_type = SHARD_STONE_PIECE
-	sheet_singular_name = "bricks"
+	sheet_singular_name = "brick"
 	sheet_plural_name = "bricks"
 
 /material/cult/place_dismantled_girder(var/turf/target)
@@ -637,6 +656,7 @@ var/list/name_to_material
 	ignition_point = T0C+300
 	melting_point = T0C+300
 	protectiveness = 3 // 13%
+	worth = 2
 
 /material/leather/synthetic
 	name = "synthetic leather"
@@ -655,6 +675,7 @@ var/list/name_to_material
 	ignition_point = T0C+300
 	melting_point = T0C+300
 	protectiveness = 5
+	worth = 1.8
 
 /material/silk
 	name = "silk"
@@ -664,6 +685,7 @@ var/list/name_to_material
 	ignition_point = T0C+232
 	melting_point = T0C+300
 	protectiveness = 0 // 0%
+	worth = 6
 
 /material/wool
 	name = "wool"
@@ -691,6 +713,7 @@ var/list/name_to_material
 	ignition_point = T0C+232
 	melting_point = T0C+300
 	protectiveness = 1 // 4%
+	worth = 5
 
 /material/carpet
 	name = "carpet"
@@ -811,8 +834,10 @@ var/list/name_to_material
 	tableslam_noise = 'sound/effects/Glasshit.ogg'
 	hardness = 100
 	stack_origin_tech = list(TECH_ARCANE = 1, TECH_MATERIAL = 6)
-	sheet_singular_name = "gems"
+	sheet_singular_name = "gem"
 	sheet_plural_name = "gems"
+	worth = 25
+	icon_colour = "#292929"
 
 /material/painite
 	name = "painite"
@@ -821,16 +846,20 @@ var/list/name_to_material
 	stack_type = /obj/item/stack/material/painite
 	flags = MATERIAL_UNMELTABLE
 	tableslam_noise = 'sound/effects/Glasshit.ogg'
-	sheet_singular_name = "gems"
+	sheet_singular_name = "gem"
 	sheet_plural_name = "gems"
+	worth = 10
+	icon_colour = COLOR_NT_RED
 
 /material/tin
 	name = "tin"
 	display_name = "tin"
 	use_name = "tin"
 	stack_type = /obj/item/stack/material/tin
-	sheet_singular_name = "ingots"
+	sheet_singular_name = "ingot"
 	sheet_plural_name = "ingots"
+	worth = 1.2
+	icon_colour = COLOR_WHITE
 
 /material/copper
 	name = "copper"
@@ -838,8 +867,10 @@ var/list/name_to_material
 	use_name = "copper"
 	stack_type = /obj/item/stack/material/copper
 	conductivity = 52
-	sheet_singular_name = "ingots"
+	sheet_singular_name = "ingot"
 	sheet_plural_name = "ingots"
+	worth = 1.2
+	icon_colour = COLOR_DARK_BROWN
 
 /material/quartz
 	name = "quartz"
@@ -847,13 +878,26 @@ var/list/name_to_material
 	use_name = "quartz"
 	stack_type = /obj/item/stack/material/quartz
 	tableslam_noise = 'sound/effects/Glasshit.ogg'
-	sheet_singular_name = "crystals"
+	sheet_singular_name = "crystal"
 	sheet_plural_name = "crystals"
+	worth = 4
+	icon_colour = COLOR_WHITE
+
+/material/quartz/rose_quartz
+	name = "rose quartz"
+	display_name = "rose quartz"
+	use_name = "rose quartz"
+	worth = 7
+	stack_type = /obj/item/stack/material/quartz/rose_quartz
+
+	icon_colour = "#e3a3a3"
 
 /material/aluminium
 	name = "aluminium"
 	display_name = "aluminium"
 	use_name = "aluminium"
 	stack_type = /obj/item/stack/material/aluminium
-	sheet_singular_name = "ingots"
+	sheet_singular_name = "ingot"
 	sheet_plural_name = "ingots"
+	worth = 1.2
+	icon_colour = COLOR_GRAY

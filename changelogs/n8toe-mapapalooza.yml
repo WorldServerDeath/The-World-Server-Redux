@@ -16,18 +16,31 @@
 #   rscdel (general deleting of nice things)
 #   imageadd
 #   imagedel
+#   maptweak
 #   spellcheck (typo fixes)
 #   experiment
 #################################
 
 # Your name.  
-author: "
+author: N3X15
+
 # Optional: Remove this file after generating master changelog.  Useful for PR changelogs that won't get used again.
 delete-after: True
+
 # Any changes you've made.  See valid prefix list above.
 # INDENT WITH TWO SPACES.  NOT TABS.  SPACES.
 # SCREW THIS UP AND IT WON'T WORK.
-# Also, this gets changed to [] after reading.  Just remove the brackets when you add new shit.
-# Please surround your changes in  double quotes ("). It works without them, but if you use certain characters it screws up compiling. The quotes will not show up in the changelog.
+# Also, all entries are changed into a single [] after a master changelog generation. Just remove the brackets when you add new entries.
+# Please surround your changes in  double quotes ("), as certain characters otherwise screws up compiling. The quotes will not show up in the changelog.
 changes: 
-  - bugfix: "Fixed holster and webbing combo. to draw from a holster you now either need to use right click, a macro, or H while in hotkey mode. clicking on uniform will still holster. eventually will make this intent based"
+  - rscadd: "New PD uniforms and armor fully implimented in vendors"
+  - rscdel: "Removed old PD uniforms in loadout"
+  - maptweak: "added chargers to ground floor of PD"
+  - maptweak: "added paper shredder to hospital"
+  - maptweak: "gave detectives paper and a photocopier, also body bags"
+  - maptweak: "Fixed Psych office access"
+  - maptweak: "Added unsimulated tiles bordering bunker to prevent the city being sucked into space"
+  - maptweak: "Gave PDSI a house plant"
+  - maptweak: "RD Office given modular console"
+  - maptweak: "PD Given EOD suit"
+  - maptweak: "Paid medical vendor in Hospital Lobby, bought items are persistent"

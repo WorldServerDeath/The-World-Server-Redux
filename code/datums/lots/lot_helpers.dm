@@ -54,7 +54,12 @@
 	if(!has_tenants())
 		return 0
 
-	var/earnings = (tenants.len * get_rent()) - get_service_charge()
+	var/tenant_rent = 0
+	for(var/datum/tenant/T in tenants)
+		tenant_rent += get_rent(T)
+
+	var/earnings = tenant_rent - get_service_charge()
+
 
 	return earnings
 
@@ -74,14 +79,19 @@
 /datum/lot/proc/get_default_rent()
 	return initial(rent)
 
-/datum/lot/proc/get_rent()
+/datum/lot/proc/get_rent(var/datum/tenant/T)
+	if(T && !isnull(T.get_rent()))
+		return T.get_rent(T)
+
 	return rent
 
-/datum/lot/proc/get_rent_tax_amount()
-	return (get_rent() * get_tax())
+/datum/lot/proc/get_rent_tax_amount(var/datum/tenant/T)
+	return (get_rent(T) * get_tax())
 
-/datum/lot/proc/get_rent_after_tax()
-	return (get_rent() - get_rent_tax_amount())
+/datum/lot/proc/get_rent_after_tax(var/datum/tenant/T)
+	var/rent = get_rent(T)
+
+	return (rent - get_rent_tax_amount(T))
 
 /datum/lot/proc/get_landlord_balance()
 	return landlord.get_balance()
@@ -125,6 +135,7 @@
 
 	tenants -= tenant
 	QDEL_NULL(tenant)
+	listclearnulls(tenants)
 
 	return TRUE
 
@@ -205,6 +216,7 @@
 
 	applied_tenants -= applicant
 	QDEL_NULL(applicant)
+	listclearnulls(applied_tenants)
 
 /datum/lot/proc/get_applicant_by_uid(uid)
 	for(var/datum/tenant/applicant in applied_tenants)
@@ -220,6 +232,8 @@
 	truncate_oldest(notes, MAX_LANDLORD_LOGS)
 
 /datum/lot/proc/accept_rentee(var/datum/tenant/applicant)
+	if(!(applicant in applied_tenants))
+		return
 	var/datum/computer_file/data/email_account/council_email = get_email(using_map.council_email)
 	var/datum/computer_file/data/email_message/message = new/datum/computer_file/data/email_message()
 	var/eml_cnt = "Dear [applicant.name], \[br\]"
@@ -241,4 +255,4 @@
 
 	tenants_wanted = FALSE
 
-	add_note(applicant.name, "Accepted [name]'s tenancy application for [applicant.name]",usr)
+	add_note(landlord.name, "Accepted [name]'s tenancy application for [applicant.name]",usr)

@@ -67,6 +67,7 @@
 	else
 		dat += "<a style=\"background: #515151;\" href='#'>Join As [alt_title ? alt_title : job.title]</a>"
 		dat += "<br>"
+
 		if(!is_hard_whitelisted(src, job))
 			dat += "This job requires whitelisting, or is obtained IC'ly through in-game events."
 		else if(!job.enabled)
@@ -91,6 +92,9 @@
 			var/datum/business/biz = get_business_by_biz_uid(job.business)
 			if(biz && biz.suspended)
 				dat += "The business of this job is currently suspended."
+		else if(client.prefs.is_synth())
+			dat += "This job does not hire synthetics."
+
 		else
 			dat += "This job is unavailable."
 
@@ -115,7 +119,7 @@
 			label = "Active Jobs"
 			dat += "<BR>Active Jobs | <a href='byond://?src=\ref[src];SelectDeptType=PUBLIC'>Public Sector Jobs</a>"
 			dat += " | <a href='byond://?src=\ref[src];SelectDeptType=PRIVATE'>Private Sector Jobs</a>"
-			dat += "<BR>This is a list of all available jobs that you can join. See the public and private tabs to filter."
+			dat += "<BR>This is a list of all available jobs that you can join, feel free to play as one. See the public and private tabs to filter."
 		if("PUBLIC")
 			job_departments += shuffle(SSeconomy.get_all_nonbusiness_departments())
 			label = "Public Sector"
